@@ -1,0 +1,8 @@
+.Footer {
+    /*border: 1px solid blue;*/
+
+    font-size: max(8px, calc(8px + 0.2vw));
+    color: rgb(176, 20, 20);
+    text-transform: uppercase;
+    font-weight: bold;
+}

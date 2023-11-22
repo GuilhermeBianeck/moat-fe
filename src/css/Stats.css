@@ -1,0 +1,28 @@
+.Stats {
+    text-transform: uppercase;
+}
+
+.Stats h2 {
+    font-size: max(10px, calc(10px + 0.2vw));
+    color: white;
+}
+
+.StatRow {
+    overflow: hidden;
+    margin-top: 5px;
+    font-size: max(9px, calc(9px + 0.2vw));
+}
+
+.StatName {
+    float: left;
+}
+
+.StatValue {
+    float: right;
+    font-weight: bold;
+}
+
+.NoStats {
+    color: white;
+    font-weight: bold;
+}

@@ -1,0 +1,53 @@
+.MOATApp {
+    text-align: center;
+
+    display: flex;
+    flex-direction: column;
+
+    flex-grow: 1;
+
+    min-height: 0;
+    min-width: 0;
+
+    /*max-width: 1200px;*/
+    max-width: max(800px, 50vw);
+
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+/* Background overlay */
+.MOATApp:before {
+    z-index: -1;
+    content: ' ';
+
+    width: calc(100vw);
+    height: calc(100vh);
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    display: block;
+    transform: translate(-50%, -50%) rotate(-20deg) scale(150%);
+
+    background-image: url("../images/target.svg");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+
+    opacity: 0.2;
+}
+
+.RoundBorder {
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+input[type="checkbox"], select {
+    cursor: pointer;
+}
+
+p, span, h1, h2, h3 {
+    cursor: default;
+}

@@ -1,0 +1,59 @@
+.Options {
+}
+
+.Option {
+    overflow: hidden;
+}
+
+.Option {
+    font-size: max(10px, calc(10px + 0.2vw));
+    margin-top: 25px;
+    color: rgb(229, 229, 229);
+}
+
+.Option label {
+    float: left;
+    text-transform: uppercase;
+}
+
+.Option input, .Options select {
+    float: right;
+}
+
+.Option input {
+    margin-top: 2px;
+}
+
+.Option input[type="checkbox"] {
+    border: 0px;
+    margin-right: 0px;
+}
+
+.Option input[type="text"] {
+    font-size: 11px;
+    width: 100px;
+    border: 0px;
+    text-align: center;
+    margin-top: 1px;
+}
+
+.NicknameErrorMsg {
+    overflow: hidden;
+    margin: 0;
+}
+
+.NicknameErrorMsg p {
+    margin-top: 5px;
+    margin-bottom: 0px;
+    font-size: 10px;
+    float: right;
+}
+
+.Option select {
+    margin-top: 0px;
+    font-size: 11px;
+    border: 0px;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+}
+

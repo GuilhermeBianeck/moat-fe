@@ -1,0 +1,44 @@
+.MainMenu {
+    margin-bottom: 12px;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.MainMenu ul {
+    list-style-type: none;
+    overflow: hidden;
+    margin-top: 7px;
+    margin-bottom: 7px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0;
+
+    font-size: max(10px, calc(10px + 0.2vw));
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.MainMenu li {
+    display: inline;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    /*padding-left: 7px;*/
+    padding-left: max(7px, 1.1vw);
+    padding-right: max(7px, 1.1vw);
+}
+
+.MainMenu li a {
+    text-decoration: none;
+    color: white;
+}
+
+.MainMenu li a:hover {
+    /* color: yellow; */
+    /* text-decoration: underline; */
+
+    animation-name: brightenText;
+    animation-duration: 1s;
+}
+
+@keyframes brightenText {
+    to {color: red;}
+}

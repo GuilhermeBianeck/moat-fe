@@ -1,0 +1,36 @@
+.PopUpContainer {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.85);
+    top: 0;
+    left: 0;
+}
+
+.PopUp-Screen {
+    position: absolute;
+
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, 0);
+
+    background-color: rgba(16,16,16,0.9);
+    padding: 0px 15px 14px 15px;
+    min-width: 250px;
+}
+
+/**
+ * On mobile devices with portrait view port
+ * to prevent leaderboard clipping.
+ */
+@media screen and (max-height: 400px) {
+    .PopUp-Screen {
+        top: 6%;
+    }
+}
+
+.PopUp-Screen h1 {
+    font-size: max(12px, calc(12px + 0.4vw));
+    text-transform: uppercase;
+    text-shadow: 2px 2px rgba(161, 18, 18, 0.7);
+}
