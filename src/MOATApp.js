@@ -7,6 +7,7 @@ import About from './About.js';
 import Options from './Options.js';
 import Stats from './Stats.js';
 import WelcomeScreen from './WelcomeScreen.js';
+import AdminPage from './admin/AdminPage.js';
 
 import Cookies from './cookies/Cookies.js';
 import GameStats from './sg_objects/GameStats.js';
@@ -32,6 +33,8 @@ class MOATApp extends React.Component {
         aboutPageVisible: false,
         optionsPageVisible: false,
         statsPageVisible: false,
+
+        adminPageVisible: false,
 
         nickname: "",
         difficulty: Difficulty.DEFAULT_DIFFICULTY,
@@ -341,7 +344,25 @@ class MOATApp extends React.Component {
         });
     }
 
+    showAdminPage = () => {
+        console.log("Trying to load Admin Page...");
+
+        this.setState({adminPageVisible: true});
+    }
+
     render() {
+        let mainBody;
+
+        if (this.state.adminPageVisible) {
+            mainBody = <AdminPage />
+        } else {
+            mainBody = <Body difficulty={this.state.difficulty}
+                    playMusic={this.state.playMusic}
+                    playSounds={this.state.playSounds} 
+                    setLastGameStats={this.state.setLastGameStats} 
+                    sendScoreToServer={this.state.sendScoreToServer} />
+        }
+
         return (
             <div className="MOATApp">
                 <Header showLeaderBoard={this.state.showLeaderBoard}
@@ -349,13 +370,9 @@ class MOATApp extends React.Component {
                         showOptionsPage={this.state.showOptionsPage} 
                         showStatsPage={this.state.showStatsPage} />
 
-                <Body difficulty={this.state.difficulty}
-                        playMusic={this.state.playMusic}
-                        playSounds={this.state.playSounds} 
-                        setLastGameStats={this.state.setLastGameStats} 
-                        sendScoreToServer={this.state.sendScoreToServer} />
+                {mainBody}
 
-                <Footer />
+                <Footer showAdminPage={this.showAdminPage} />
 
                 {this.state.leaderBoardVisible ?
                     <LeaderBoard showLeaderBoard={this.state.showLeaderBoard} 

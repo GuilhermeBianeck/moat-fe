@@ -6,3 +6,12 @@
     text-transform: uppercase;
     font-weight: bold;
 }
+
+.Footer a {
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.61);
+}
+
+.Footer a:hover {
+    text-decoration: underline;
+}
