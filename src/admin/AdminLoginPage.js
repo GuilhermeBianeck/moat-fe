@@ -41,7 +41,6 @@ class AdminLoginPage extends React.Component {
         this.props.setAdminPassword(adminPassword);
     }
 
-    // NOTE: We don't actually need the json object to login.  Can remove that.
     handleLogin = async () => {
         console.log("Handling Admin Login...");
 

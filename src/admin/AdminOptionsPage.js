@@ -20,7 +20,8 @@ class AdminOptionsPage extends React.Component {
                 <h2>Admin Options</h2>
 
                 <p className="RoundBorder">
-                    <button>Remove All Scores</button>
+                    <button onClick={() => {this.handleRemoveAllScores();}}
+                        >Remove All Scores</button>
                 </p>
 
                 <p className="AdminRow RoundBorder">
@@ -37,12 +38,14 @@ class AdminOptionsPage extends React.Component {
 
                 <p className="AdminRow RoundBorder">
                     <input type="text"></input>
-                    <button>Ban IP Address</button>
+                    <button onClick={() => {this.handleBanIpAddress();}}
+                        >Ban IP Address</button>
                 </p>
 
                 <p className="AdminRow RoundBorder">
                     <input type="text"></input>
-                    <button>Unban IP Address</button>
+                    <button onClick={() => {this.handleUnBanIpAddress();}}
+                        >Unban IP Address</button>
                 </p>                
 
                 <p className="AdminRow RoundBorder">
@@ -69,18 +72,14 @@ class AdminOptionsPage extends React.Component {
     }
 
     handleRemoveScoresWithNickname = async (nickname) => {
-        console.log("Handling removing scores with nickname");
+        console.log("Handling removing scores with nickname.");
 
         const adminUsername = this.props.adminUsername;
         const adminPassword = this.props.adminPassword;
 
-        console.log("adminUsername: " + adminUsername);
-        console.log("adminPassword: " + adminPassword);
-        console.log("nickname: " + nickname);
-
         const authString = "Basic " + btoa(adminUsername + ":" + adminPassword);
 
-        const nickNameRemovalObj = {
+        const nicknameDTO = {
             nickname: nickname
         };
 
@@ -88,14 +87,30 @@ class AdminOptionsPage extends React.Component {
 
         const fetchParams = {
             method: 'POST',
-            body: JSON.stringify(nickNameRemovalObj),
+            body: JSON.stringify(nicknameDTO),
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': authString
             }
         };
 
+        let result = await fetch(url, fetchParams)
+            .then(async (response) => {
+                console.log("Successfully performed Fetch.");
+
+                if (response.ok) {
+                    return true;
+                } else {
+                    return false;
+                }
+            })
+            .catch((error) => {
+                console.log("ERROR performing fetch: " + error);
+
+                return false;
+            })
         
+        console.log("Remove Nickname result: " + result);
     }
 }
 
