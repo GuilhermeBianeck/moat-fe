@@ -1,5 +1,7 @@
 import React from 'react';
 
+import URLConsts from '../constants/URLConsts';
+
 import './css/AdminOptionsPage.css';
 
 class AdminOptionsPage extends React.Component {
@@ -8,7 +10,8 @@ class AdminOptionsPage extends React.Component {
     }
 
     state = {
-        ipBanList: "192.168.1.2\n193.3.4.5"
+        ipBanList: "192.168.1.2\n193.3.4.5",
+        removeNickname: ""
     };
 
     render () {
@@ -21,8 +24,15 @@ class AdminOptionsPage extends React.Component {
                 </p>
 
                 <p className="AdminRow RoundBorder">
-                    <input type="text"></input>
-                    <button>Remove Scores With Nickname</button>
+                    <input type="text" onChange={
+                        (event) => {
+                            this.setState({removeNickname: event.target.value});
+                        }}></input>
+
+                    <button onClick={
+                        () => 
+                            {this.handleRemoveScoresWithNickname(this.state.removeNickname);}}
+                        >Remove Scores With Nickname</button>
                 </p>
 
                 <p className="AdminRow RoundBorder">
@@ -44,6 +54,48 @@ class AdminOptionsPage extends React.Component {
                 </p>
             </div>
         );
+    }
+
+    handleRemoveAllScores = () => {
+        console.log("NOT CURRENTLY IMPLEMENTED!");
+    }
+
+    handleBanIpAddress = () => {
+        console.log("NOT CURRENTLY IMPLEMENTED!");
+    }
+
+    handleUnBanIpAddress = () => {
+        console.log("NOT CURRENTLY IMPLEMENTED!");
+    }
+
+    handleRemoveScoresWithNickname = async (nickname) => {
+        console.log("Handling removing scores with nickname");
+
+        const adminUsername = this.props.adminUsername;
+        const adminPassword = this.props.adminPassword;
+
+        console.log("adminUsername: " + adminUsername);
+        console.log("adminPassword: " + adminPassword);
+        console.log("nickname: " + nickname);
+
+        const authString = "Basic " + btoa(adminUsername + ":" + adminPassword);
+
+        const nickNameRemovalObj = {
+            nickname: nickname
+        };
+
+        const url = URLConsts.RPC_BASE_URL + "/admin/remove-scores-with-nickname/";
+
+        const fetchParams = {
+            method: 'POST',
+            body: JSON.stringify(nickNameRemovalObj),
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': authString
+            }
+        };
+
+        
     }
 }
 

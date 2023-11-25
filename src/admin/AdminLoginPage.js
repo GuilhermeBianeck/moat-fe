@@ -6,13 +6,9 @@ import './css/AdminPageLogin.css';
 
 class AdminLoginPage extends React.Component {
     constructor(props) {
+        console.log("Constructing AdminLoginpage.");
         super(props);
     }
-
-    state = {
-        adminUsername: "",
-        adminPassword: ""
-    };
 
     render() {
         return(
@@ -38,29 +34,22 @@ class AdminLoginPage extends React.Component {
     }
 
     setAdminUsername = (adminUsername) => {
-        this.setState({adminUsername: adminUsername});
+        this.props.setAdminUsername(adminUsername);
     }
 
     setAdminPassword = (adminPassword) => {
-        this.setState({adminPassword: adminPassword});
+        this.props.setAdminPassword(adminPassword);
     }
 
     // NOTE: We don't actually need the json object to login.  Can remove that.
     handleLogin = async () => {
         console.log("Handling Admin Login...");
 
-        const adminLoginDTO = {
-            adminUsername: this.state.adminUsername,
-            adminPassword: this.state.adminPassword
-        };
-
-        console.log(adminLoginDTO);
-
-        let authString = 'Basic ' + btoa(this.state.adminUsername + ":" + this.state.adminPassword);
+        let authString = 'Basic ' 
+            + btoa(this.props.adminUsername + ":" + this.props.adminPassword);
 
         const fetchParams = {
             method: 'POST',
-            body: JSON.stringify(adminLoginDTO),
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': authString
@@ -95,42 +84,6 @@ class AdminLoginPage extends React.Component {
             this.props.setIsLoggedIn(true);
         }
     }
-
-    /*
-    testMethod1 = async () => {
-        let username = "matt";
-        let password = "password";
-
-        const adminLoginDTO = {
-            adminUsername: username,
-            adminPassword: password
-        };
-
-        let authString = 'Basic ' + btoa(username + ":" + password);
-
-        const fetchParams = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': authString
-            }
-        }
-
-        console.log("Performing TEST fetch...");
-
-        const url = "http://localhost:3002/admin/test2/";
-
-        let reponse = await fetch(url, fetchParams).then(
-            async (response) => {
-                console.log("TEST FETCH PERFORMED SUCCESSFULLY!");
-
-                let responseText = await response.text();
-                console.log(responseText);
-            }
-        )
-        .catch((error) => {console.log("ERROR PERFORMING FETCH: " + error)});
-    }
-    */
 }
 
 export default AdminLoginPage;

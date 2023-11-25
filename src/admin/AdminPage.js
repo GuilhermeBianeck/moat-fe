@@ -21,9 +21,14 @@ class AdminPage extends React.Component {
         let page;
 
         if (!this.state.isLoggedIn) {
-            page = <AdminLoginPage setIsLoggedIn={this.setIsLoggedIn} />;
+            page = <AdminLoginPage setIsLoggedIn={this.setIsLoggedIn} 
+                setAdminUsername={this.setAdminUsername} 
+                setAdminPassword={this.setAdminPassword} 
+                adminUsername={this.state.adminUsername} 
+                adminPassword={this.state.adminPassword} />;
         } else {
-            page = <AdminOptionsPage />;
+            page = <AdminOptionsPage adminUsername={this.state.adminUsername}
+                adminPassword={this.state.adminPassword} />;
         }
 
         return (
@@ -36,21 +41,11 @@ class AdminPage extends React.Component {
     setAdminUsername = (adminUsername) => {
         console.log("Setting Admin Username");
 
-        // Validate length is not null or empty.
-        if (adminUsername === null || adminUsername === undefined || adminUsername === "") {
-            throw new Error("AdminUsername cannot be null or empty!");
-        }   
-
         this.setState({adminUsername: adminUsername});
     }
 
     setAdminPassword = (adminPassword) => {
         console.log("Setting Admin Password");
-
-        // Validate length is not null or empty.
-        if (adminPassword === null || adminPassword === undefined || adminPassword === "") {
-            throw new Error("AdminPassword cannot be null or empty!");
-        }
 
         this.setState({adminPassword: adminPassword});
     }
