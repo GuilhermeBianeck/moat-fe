@@ -45,19 +45,25 @@ class AdminLoginPage extends React.Component {
         this.setState({adminPassword: adminPassword});
     }
 
-    handleLogin = async (adminUsername, adminPassword) => {
+    // NOTE: We don't actually need the json object to login.  Can remove that.
+    handleLogin = async () => {
         console.log("Handling Admin Login...");
 
         const adminLoginDTO = {
-            adminUsername: adminUsername,
-            adminPassword: adminPassword
+            adminUsername: this.state.adminUsername,
+            adminPassword: this.state.adminPassword
         };
+
+        console.log(adminLoginDTO);
+
+        let authString = 'Basic ' + btoa(this.state.adminUsername + ":" + this.state.adminPassword);
 
         const fetchParams = {
             method: 'POST',
             body: JSON.stringify(adminLoginDTO),
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': authString
             }
         };
 
@@ -73,10 +79,46 @@ class AdminLoginPage extends React.Component {
 
                     return text;
                 })
-                .catch((error) => {console.log("ERROR: unable to perform fetch.");});
+                .catch((error) => {console.log("ERROR: unable to perform fetch:" + error);});
 
         console.log(response);
     }
+
+    /*
+    testMethod1 = async () => {
+        let username = "matt";
+        let password = "password";
+
+        const adminLoginDTO = {
+            adminUsername: username,
+            adminPassword: password
+        };
+
+        let authString = 'Basic ' + btoa(username + ":" + password);
+
+        const fetchParams = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': authString
+            }
+        }
+
+        console.log("Performing TEST fetch...");
+
+        const url = "http://localhost:3002/admin/test2/";
+
+        let reponse = await fetch(url, fetchParams).then(
+            async (response) => {
+                console.log("TEST FETCH PERFORMED SUCCESSFULLY!");
+
+                let responseText = await response.text();
+                console.log(responseText);
+            }
+        )
+        .catch((error) => {console.log("ERROR PERFORMING FETCH: " + error)});
+    }
+    */
 }
 
 export default AdminLoginPage;
