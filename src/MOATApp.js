@@ -337,7 +337,10 @@ class MOATApp extends React.Component {
                 if (data !== null) {
                     this.setState({leaderBoard: data});
                 }
-            }).catch(() => {console.log("Leaderboard JSON data is empty.")});
+            }).catch(() => {
+                console.log("Leaderboard JSON data is empty.")
+                this.setState({leaderBoard: []});
+            });
         })
         .catch(() => {
             console.log("ERROR: Cannot connect to server!");
