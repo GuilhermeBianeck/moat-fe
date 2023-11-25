@@ -62,7 +62,7 @@ class Options extends React.Component {
                 }}
             >
                 <div className="Options PopUp-Screen RoundBorder">
-                    <h1>Options</h1>
+                    <h2>Options</h2>
                     <div className="Option">
                         <label>Play Sounds</label>
                         <input type="checkbox"

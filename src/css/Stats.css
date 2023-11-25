@@ -2,7 +2,7 @@
     text-transform: uppercase;
 }
 
-.Stats h2 {
+.Stats h3 {
     font-size: max(10px, calc(10px + 0.2vw));
     color: white;
 }

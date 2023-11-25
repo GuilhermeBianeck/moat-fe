@@ -59,10 +59,10 @@ class Stats extends React.Component {
                         this.props.showStatsPage(false);
                     }}>
                 <div className="Stats PopUp-Screen RoundBorder">
-                    <h1>Stats</h1>
+                    <h2>Stats</h2>
                     {havePrvGameStats ? 
                             <>
-                                <h2>Last Game</h2>
+                                <h3>Last Game</h3>
                                 <div className="StatRow">
                                     <span className="StatName">Total Hits</span>
                                     <span className="StatValue">{hits}</span>
@@ -86,7 +86,7 @@ class Stats extends React.Component {
                      
                      {haveTotalGameStats ?
                             <>
-                                <h2>All Time</h2>
+                                <h3>All Time</h3>
                                 <div className="StatRow">
                                     <span className="StatName">Total Hits</span>
                                     <span className="StatValue">{totalHits}</span>

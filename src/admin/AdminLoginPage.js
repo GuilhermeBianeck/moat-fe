@@ -71,17 +71,29 @@ class AdminLoginPage extends React.Component {
 
         console.log("Connecting to : " + url);
 
-        let response = await fetch(url, fetchParams)
+        let loggedIn = await fetch(url, fetchParams)
                 .then(async (response) => {
-                    console.log("Connecting to RPC server...");
+                    console.log("Check Login Fetch successfully completed.");
 
-                    let text = await response.text();
+                    let logged;
 
-                    return text;
+                    if (response.ok) {
+                        console.log("User is logged in.");
+
+                        logged = true;
+                    } else {
+                        console.log("User is not logged in.");
+
+                        logged = false;
+                    }
+
+                    return logged;
                 })
                 .catch((error) => {console.log("ERROR: unable to perform fetch:" + error);});
 
-        console.log(response);
+        if (loggedIn === true) {
+            this.props.setIsLoggedIn(true);
+        }
     }
 
     /*

@@ -21,7 +21,7 @@ class AdminPage extends React.Component {
         let page;
 
         if (!this.state.isLoggedIn) {
-            page = <AdminLoginPage />;
+            page = <AdminLoginPage setIsLoggedIn={this.setIsLoggedIn} />;
         } else {
             page = <AdminOptionsPage />;
         }
@@ -55,8 +55,10 @@ class AdminPage extends React.Component {
         this.setState({adminPassword: adminPassword});
     }
 
-    login = (username, password) => {
-        console.log("Processing login...");
+    setIsLoggedIn = (loggedIn) => {
+        console.log("Setting isLoggedIn status");
+
+        this.setState({isLoggedIn: loggedIn});
     }
 }
 

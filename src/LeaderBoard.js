@@ -20,7 +20,7 @@ class LeaderBoard extends React.Component {
                     this.props.showLeaderBoard(false);
                 }}>
                 <div className="LeaderBoard PopUp-Screen RoundBorder" >
-                    <h1>Leaderboard</h1>
+                    <h2>Leaderboard</h2>
                     {this.props.leaderBoard.length ? 
                             null
                         :

@@ -51,3 +51,16 @@ input[type="checkbox"], select {
 p, span, h1, h2, h3 {
     cursor: default;
 }
+
+h1 {
+    text-transform: uppercase;
+    margin: 7px 5px 7px 5px;
+    font-size: max(14px, calc(14px + 1.1vw));
+    text-shadow: 2px 2px rgba(161, 18, 18, 0.7);
+}
+
+h2 {
+    font-size: max(12px, calc(12px + 0.4vw));
+    text-transform: uppercase;
+    text-shadow: 2px 2px rgba(161, 18, 18, 0.7);
+}

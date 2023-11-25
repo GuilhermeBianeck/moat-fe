@@ -18,7 +18,7 @@ class About extends React.Component {
                 }}
             >
                 <div className="About PopUp-Screen RoundBorder">
-                    <h1>About</h1>
+                    <h2>About</h2>
                     <p><span className="AboutAppTitle">MATT'S ONLINE AIM TRAINER v0.1</span></p>
                     <p><span className="AboutCopyright">Copyright &copy; 2023 Matt Dixon</span></p>
                 </div>

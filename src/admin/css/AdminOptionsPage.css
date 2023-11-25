@@ -1,0 +1,75 @@
+.AdminOptionsPage {
+    /* width: 420px; */
+
+    max-width: 420px;
+
+    margin-left: auto;
+    margin-right: auto;
+
+    overflow: auto;
+}
+
+.AdminOptionsPage button {
+    font-size: 11px;
+    height: 25px;
+    width: 210px;
+}
+
+.AdminOptionsPage input[type="text"] {
+    border: 0;
+
+    padding-right: 5px;
+
+    max-width: 170px;
+    min-width: 10px;
+
+    height: 22px;
+    float: left;
+}
+
+.AdminRow button {
+    float:right;
+}
+
+p.AdminRow {
+    clear: both;
+}
+
+.AdminOptionsPage p {
+    overflow: auto;
+
+    padding: 10px;
+
+    border-radius: 5px;
+}
+
+.AdminOptionsPage textarea {
+    height: 200px;
+    /* width: 350px; */
+    width: 95%;
+    resize: none;
+
+    padding: 5px;
+    margin: 0;
+}
+
+.AdminOptionsPage h3 {
+    font-size: 13px;
+    margin-bottom: 10px;
+    margin-top: 0px;
+}
+
+/* At width 460 then stack and centre align buttons and input */
+@media (max-width: 460px) {
+    .AdminOptionsPage {
+    }
+
+    .AdminOptionsPage input[type="text"], .AdminRow button {
+        float: none;
+        display: inline-block;
+    }
+
+    .AdminRow button {
+        margin-top: 10px;
+    }
+}
