@@ -10,8 +10,14 @@ class AdminOptionsPage extends React.Component {
     }
 
     state = {
-        ipBanList: "192.168.1.2\n193.3.4.5",
-        removeNickname: ""
+        ipBanList: "UNIMPLEMENTED FUNCTION",
+        removeNickname: "",
+
+        removeAllScoresBtnEnabled: true,
+        removeScoresWNickBtnEnabled: true,
+        banIpAddressBtnEnabled: true,
+        unbanIpAddressBtnEnabled: true,
+        logoutBtnEnabled: true
     };
 
     render () {
@@ -20,7 +26,8 @@ class AdminOptionsPage extends React.Component {
                 <h2>Admin Options</h2>
 
                 <p className="RoundBorder">
-                    <button onClick={() => {this.handleRemoveAllScores();}}
+                    <button disabled={!this.state.removeAllScoresBtnEnabled} 
+                        onClick={() => {this.handleRemoveAllScores();}}
                         >Remove All Scores</button>
                 </p>
 
@@ -30,21 +37,24 @@ class AdminOptionsPage extends React.Component {
                             this.setState({removeNickname: event.target.value});
                         }}></input>
 
-                    <button onClick={
-                        () => 
-                            {this.handleRemoveScoresWithNickname(this.state.removeNickname);}}
+                    <button disabled={!this.state.removeScoresWNickBtnEnabled}
+                        onClick={
+                            () => 
+                                {this.handleRemoveScoresWithNickname(this.state.removeNickname);}}
                         >Remove Scores With Nickname</button>
                 </p>
 
                 <p className="AdminRow RoundBorder">
                     <input type="text"></input>
-                    <button onClick={() => {this.handleBanIpAddress();}}
+                    <button disabled={!this.state.banIpAddressBtnEnabled}
+                        onClick={() => {this.handleBanIpAddress();}}
                         >Ban IP Address</button>
                 </p>
 
                 <p className="AdminRow RoundBorder">
                     <input type="text"></input>
-                    <button onClick={() => {this.handleUnBanIpAddress();}}
+                    <button disabled={!this.state.unbanIpAddressBtnEnabled}
+                        onClick={() => {this.handleUnBanIpAddress();}}
                         >Unban IP Address</button>
                 </p>                
 
@@ -55,8 +65,43 @@ class AdminOptionsPage extends React.Component {
 
                     <textarea readOnly={true} value={this.state.ipBanList}></textarea>
                 </p>
+
+                <p>
+                    <button disabled={!this.state.logoutBtnEnabled}
+                        onClick={() => {this.handleAdminLogout();}}>Logout</button>
+                </p>
             </div>
         );
+    }
+
+    disableAllButtons = () => {
+        console.log("Disabling all buttons");
+
+        this.setState({
+            removeAllScoresBtnEnabled: false,
+            removeScoresWNickBtnEnabled: false,
+            banIpAddressBtnEnabled: false,
+            unbanIpAddressBtnEnabled: false,
+            logoutBtnEnabled: false
+        });
+    }
+
+    enableAllButtons = () => {
+        console.log("Enabling all buttons");
+
+        this.setState({
+            removeAllScoresBtnEnabled: true,
+            removeScoresWNickBtnEnabled: true,
+            banIpAddressBtnEnabled: true,
+            unbanIpAddressBtnEnabled: true,
+            logoutBtnEnabled: true   
+        });
+    }
+
+    handleAdminLogout = () => {
+        console.log("Trying to log out current admin...");
+
+        this.props.handleAdminLogout();
     }
 
     handleRemoveAllScores = () => {
@@ -73,6 +118,14 @@ class AdminOptionsPage extends React.Component {
 
     handleRemoveScoresWithNickname = async (nickname) => {
         console.log("Handling removing scores with nickname.");
+
+        if (nickname === null || nickname === "" || nickname === undefined) {
+            console.log("Nickname cannot be null or empty.");
+
+            return;
+        }
+
+        this.disableAllButtons();
 
         const adminUsername = this.props.adminUsername;
         const adminPassword = this.props.adminPassword;
@@ -111,6 +164,8 @@ class AdminOptionsPage extends React.Component {
             })
         
         console.log("Remove Nickname result: " + result);
+
+        this.enableAllButtons();
     }
 }
 

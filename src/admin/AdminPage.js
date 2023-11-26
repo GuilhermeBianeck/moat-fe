@@ -28,7 +28,8 @@ class AdminPage extends React.Component {
                 adminPassword={this.state.adminPassword} />;
         } else {
             page = <AdminOptionsPage adminUsername={this.state.adminUsername}
-                adminPassword={this.state.adminPassword} />;
+                adminPassword={this.state.adminPassword} 
+                handleAdminLogout={this.handleAdminLogout} />;
         }
 
         return (
@@ -54,6 +55,16 @@ class AdminPage extends React.Component {
         console.log("Setting isLoggedIn status");
 
         this.setState({isLoggedIn: loggedIn});
+    }
+
+    handleAdminLogout = () => {
+        console.log("Handling admin logout");
+
+        this.setState({
+            isLoggedIn: false,
+            adminUsername: "",
+            adminPassword: ""
+        });
     }
 }
 

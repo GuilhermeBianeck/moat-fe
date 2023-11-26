@@ -10,7 +10,24 @@ class AdminLoginPage extends React.Component {
         super(props);
     }
 
+    state = {
+        loginErrorMsg: "Error logging in!",
+        showLoginErrorMsg: false,
+        
+        loginButtonEnabled: true
+    }
+
     render() {
+        let loginError;
+        if (this.state.showLoginErrorMsg) {
+            loginError = 
+                <p className="AdminLoginError">
+                    <span>{this.state.loginErrorMsg}</span>
+                </p>
+        } else {
+            loginError = "";
+        }
+
         return(
             <div className="AdminLoginPage">
                 <p>
@@ -27,8 +44,10 @@ class AdminLoginPage extends React.Component {
                             }}></input>
                 </p>
                 <p>
-                    <button onClick={() => {this.handleLogin();}}>Login</button>
+                    <button className="LoginButton" onClick={() => {this.handleLogin();}} 
+                        disabled={!this.state.loginButtonEnabled}>Login</button>
                 </p>
+                {loginError}
             </div>
         );
     }
@@ -41,8 +60,18 @@ class AdminLoginPage extends React.Component {
         this.props.setAdminPassword(adminPassword);
     }
 
+    disableLoginButton = () => {
+        this.setState({loginButtonEnabled: false});
+    }
+
+    enableLoginButton = () => {
+        this.setState({loginButtonEnabled: true});
+    }
+
     handleLogin = async () => {
         console.log("Handling Admin Login...");
+
+        this.disableLoginButton();
 
         let authString = 'Basic ' 
             + btoa(this.props.adminUsername + ":" + this.props.adminPassword);
@@ -77,11 +106,20 @@ class AdminLoginPage extends React.Component {
 
                     return logged;
                 })
-                .catch((error) => {console.log("ERROR: unable to perform fetch:" + error);});
+                .catch((error) => {
+                    console.log("ERROR: unable to perform fetch:" + error);
+
+                    return false;
+                });
 
         if (loggedIn === true) {
+            this.setState({showLoginErrorMsg: false});
             this.props.setIsLoggedIn(true);
+        } else {
+            this.setState({showLoginErrorMsg: true});
         }
+
+        this.enableLoginButton();
     }
 }
 

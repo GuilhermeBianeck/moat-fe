@@ -25,3 +25,7 @@
     background-color: white;
     background-color: rgb(255, 0, 0, 1.0);
 }
+
+.AdminPage button:disabled {
+    background-color: rgba(124, 121, 121, 0.829);    
+}
