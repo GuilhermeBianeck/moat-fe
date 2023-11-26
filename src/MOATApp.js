@@ -353,6 +353,12 @@ class MOATApp extends React.Component {
         this.setState({adminPageVisible: true});
     }
 
+    hideAdminPage = () => {
+        console.log("Hiding Admin Page...");
+
+        this.setState({adminPageVisible: false});
+    }
+
     render() {
         let mainBody;
 
@@ -371,7 +377,9 @@ class MOATApp extends React.Component {
                 <Header showLeaderBoard={this.state.showLeaderBoard}
                         showAboutPage={this.state.showAboutPage}
                         showOptionsPage={this.state.showOptionsPage} 
-                        showStatsPage={this.state.showStatsPage} />
+                        showStatsPage={this.state.showStatsPage} 
+                        hideAdminPage={this.hideAdminPage}
+                    />
 
                 {mainBody}
 

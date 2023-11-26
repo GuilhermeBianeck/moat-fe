@@ -7,7 +7,8 @@ class Header extends React.Component {
         return (
             <div className="Header">
                 <header>
-                    <h1>Matt's Online Aim Trainer</h1>
+                    <h1><a href="#" onClick={() => {this.props.hideAdminPage();}}
+                        >Matt's Online Aim Trainer</a></h1>
                     <MainMenu showLeaderBoard={this.props.showLeaderBoard}
                         showAboutPage={this.props.showAboutPage}
                         showOptionsPage={this.props.showOptionsPage}
