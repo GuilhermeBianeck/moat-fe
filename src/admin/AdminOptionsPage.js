@@ -104,8 +104,45 @@ class AdminOptionsPage extends React.Component {
         this.props.handleAdminLogout();
     }
 
-    handleRemoveAllScores = () => {
-        console.log("NOT CURRENTLY IMPLEMENTED!");
+    handleRemoveAllScores = async () => {
+        console.log("Removing all scores!");
+
+        this.disableAllButtons();
+
+        const adminUsername = this.props.adminUsername;
+        const adminPassword = this.props.adminPassword;
+
+        const authString = "Basic " + btoa(adminUsername + ":" + adminPassword);
+
+        const url = URLConsts.RPC_BASE_URL + "/admin/remove-all-scores/";
+
+        const fetchParams = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': authString
+            }
+        };
+
+        let response = await fetch(url, fetchParams)
+            .then((response) => {
+                console.log("Fetch executed successfully.");
+
+                if (response.ok) {
+                    return true;
+                } else {
+                    throw "Fetch response not OK";
+                }
+            })
+            .catch((error) => {
+                console.log("ERROR performing fetch: " + error);
+
+                return false;
+            })
+        
+        console.log("Removing all scores successful: " + response);
+
+        this.enableAllButtons();
     }
 
     handleBanIpAddress = () => {
