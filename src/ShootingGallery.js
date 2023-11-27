@@ -109,9 +109,14 @@ class ShootingGallery extends React.Component {
         window.addEventListener("resize", this.#resizeEventListener);
     }
 
+    // Destructor
     componentWillUnmount = () => {
+        console.log("Cleaning up ShootingGallery before unmount.");
+
         console.log("Window resize listener removed.");
         window.removeEventListener("resize", this.#resizeEventListener);
+
+        this.#sounds.stopMusic();
     }
 
     shouldComponentUpdate = (newProps, newState) => {
@@ -203,13 +208,17 @@ class ShootingGallery extends React.Component {
 
     // Note this must be done before any other drawing.
     #drawBackground = () => {
-        this.#context.fillStyle = "black";
-        this.#context.fillRect(0, 0, this.#canvas.current.width, this.#canvas.current.height);
+        if (this.#canvas.current !== null) {
+            this.#context.fillStyle = "black";
+            this.#context.fillRect(0, 0, this.#canvas.current.width, this.#canvas.current.height);
+        }
     }
 
     #drawBackgroundOverlay = () => {
-        this.#context.fillStyle = "rgba(0,0,0,0.5)";
-        this.#context.fillRect(0, 0, this.#canvas.current.width, this.#canvas.current.height);
+        if (this.#canvas.current !== null) {
+            this.#context.fillStyle = "rgba(0,0,0,0.5)";
+            this.#context.fillRect(0, 0, this.#canvas.current.width, this.#canvas.current.height);
+        }
     }
 
     #drawWelcomeMessage = () => {
@@ -390,23 +399,27 @@ class ShootingGallery extends React.Component {
     }
 
     #getResizeHeightRatio = () => {
-        return this.#canvas.current.height / this.#CANVAS_INIT_HEIGHT;
+        if (this.#canvas.current !== null)
+            return this.#canvas.current.height / this.#CANVAS_INIT_HEIGHT;
     }
 
     #getResizeWidthRatio = () => {
-        return this.#canvas.current.width / this.#CANVAS_INIT_WIDTH;
+        if (this.#canvas.current !== null)
+            return this.#canvas.current.width / this.#CANVAS_INIT_WIDTH;
     }
 
     #createRoundTarget = () => {
-        let targetRadius = this.#getTargetRadius();
+        if (this.#canvas.current !== null) {
+            let targetRadius = this.#getTargetRadius();
 
-        let randX = Math.floor(Math.random() * this.#canvas.current.width);
-        let randY = Math.floor(Math.random() * this.#canvas.current.height);
+            let randX = Math.floor(Math.random() * this.#canvas.current.width);
+            let randY = Math.floor(Math.random() * this.#canvas.current.height);
 
-        let coorObj = this.#checkAndReposOffScreenTarget(randX, randY, targetRadius);
+            let coorObj = this.#checkAndReposOffScreenTarget(randX, randY, targetRadius);
 
-        let roundTarget = new RoundTarget(coorObj.xPos, coorObj.yPos, targetRadius);
-        this.#roundTargets.add(roundTarget);
+            let roundTarget = new RoundTarget(coorObj.xPos, coorObj.yPos, targetRadius);
+            this.#roundTargets.add(roundTarget);
+        }
     }
 
     // Checks if the supplied target position is onscreen and recalculates if not.
