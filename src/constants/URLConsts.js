@@ -1,7 +1,10 @@
 class URLConsts {
     static #PROTOCOL = window.location.protocol;
-    static #HOSTNAME = window.location.hostname;
-    static #RPC_PORT = 3002;
+    
+    // static #HOSTNAME = window.location.hostname;
+    static #HOSTNAME = 'aim-api.codermatt.com';
+
+    static #RPC_PORT = 80;
 
     constructor() {
         throw ("URLConsts cannot be instantiated.");
