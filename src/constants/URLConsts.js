@@ -1,10 +1,11 @@
 class URLConsts {
     static #PROTOCOL = window.location.protocol;
     
-    // static #HOSTNAME = window.location.hostname;
-    static #HOSTNAME = 'aim-api.codermatt.com';
+    // static #HOSTNAME = 'aim-api.codermatt.com';
+    // static #RPC_PORT = 80;
 
-    static #RPC_PORT = 80;
+    static #HOSTNAME = process.env.REACT_APP_RPC_HOSTNAME;
+    static #RPC_PORT = process.env.REACT_APP_RPC_PORT;
 
     constructor() {
         throw ("URLConsts cannot be instantiated.");
