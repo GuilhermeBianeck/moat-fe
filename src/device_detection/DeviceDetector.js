@@ -7,7 +7,7 @@ class DeviceDetector {
         // TODO: Add Android and Samsung.
         console.log("Detecting device.");
 
-        let pattern = /iPad|iPhone|iPod/;
+        let pattern = /iPad|iPhone|iPod|Mobile Safari/;
         let userAgent = navigator.userAgent;
 
         if (pattern.test(userAgent))

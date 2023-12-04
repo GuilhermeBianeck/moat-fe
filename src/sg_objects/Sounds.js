@@ -141,7 +141,7 @@ class Sounds {
 
     stopMusic = () => {
         this.lastKnownCurrentTime = this.tracks[this.currentTrack].currentTime;
-        console.log("currentTime: " + this.tracks[this.currentTrack].currentTime);
+        //console.log("currentTime: " + this.tracks[this.currentTrack].currentTime);
         this.tracks[this.currentTrack].pause();
         this.tracks[this.currentTrack].currentTime = 0;
     }

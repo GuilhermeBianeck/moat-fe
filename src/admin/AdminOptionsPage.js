@@ -75,7 +75,7 @@ class AdminOptionsPage extends React.Component {
     }
 
     disableAllButtons = () => {
-        console.log("Disabling all buttons");
+        console.log("Disabling all buttons.");
 
         this.setState({
             removeAllScoresBtnEnabled: false,
@@ -87,7 +87,7 @@ class AdminOptionsPage extends React.Component {
     }
 
     enableAllButtons = () => {
-        console.log("Enabling all buttons");
+        console.log("Enabling all buttons.");
 
         this.setState({
             removeAllScoresBtnEnabled: true,
@@ -105,7 +105,7 @@ class AdminOptionsPage extends React.Component {
     }
 
     handleRemoveAllScores = async () => {
-        console.log("Removing all scores!");
+        console.log("Removing all scores.");
 
         this.disableAllButtons();
 
@@ -186,7 +186,7 @@ class AdminOptionsPage extends React.Component {
 
         let result = await fetch(url, fetchParams)
             .then(async (response) => {
-                console.log("Successfully performed Fetch.");
+                console.log("Successfully performed fetch.");
 
                 if (response.ok) {
                     return true;

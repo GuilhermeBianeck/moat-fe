@@ -117,6 +117,9 @@ class ShootingGallery extends React.Component {
         window.removeEventListener("resize", this.#resizeEventListener);
 
         this.#sounds.stopMusic();
+
+        // Stop animation
+        cancelAnimationFrame(this.#animFrameReqId);
     }
 
     shouldComponentUpdate = (newProps, newState) => {

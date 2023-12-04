@@ -8,7 +8,7 @@ import AdminOptionsPage from './AdminOptionsPage.js';
 class AdminPage extends React.Component {
     constructor(props) {
         super(props);
-        console.log("Constructing AdminPage");
+        console.log("Constructing AdminPage.");
     }
 
     state = {
@@ -40,25 +40,25 @@ class AdminPage extends React.Component {
     }
 
     setAdminUsername = (adminUsername) => {
-        console.log("Setting Admin Username");
+        console.log("Setting Admin Username.");
 
         this.setState({adminUsername: adminUsername});
     }
 
     setAdminPassword = (adminPassword) => {
-        console.log("Setting Admin Password");
+        console.log("Setting Admin Password.");
 
         this.setState({adminPassword: adminPassword});
     }
 
     setIsLoggedIn = (loggedIn) => {
-        console.log("Setting isLoggedIn status");
+        console.log("Setting isLoggedIn status.");
 
         this.setState({isLoggedIn: loggedIn});
     }
 
     handleAdminLogout = () => {
-        console.log("Handling admin logout");
+        console.log("Handling admin logout.");
 
         this.setState({
             isLoggedIn: false,
