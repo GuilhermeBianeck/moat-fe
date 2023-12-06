@@ -5,17 +5,20 @@ class BulletTrail {
     #size;
     #scaleFactor;
 
-    #TRAIL_SIZE_MULTIPLIER = 0.0009;
+    #TRAIL_SIZE_MULTIPLIER = 0.006;
+    #TRAIL_LIFESPAN = 200;             // How long the trail will show in milliseconds.
 
     #markedForDestruct;
 
     #creationTime;
+    #destructionTime;
 
     constructor(xPos, yPos, creationTime) {
         this.#xPos = xPos;
         this.#yPos = yPos;
         
         this.#creationTime = creationTime;
+        this.#destructionTime = this.#creationTime + this.#TRAIL_LIFESPAN;
 
         this.#scaleFactor = 1.0;
         this.#size = 3;
@@ -24,12 +27,10 @@ class BulletTrail {
     }
 
     draw = (context, timestamp) => {
-        let objElapsedTime = timestamp - this.#creationTime;
-
         context.fillStyle = "yellow";
 
-        // Calculate coordinates so that trail is centered with respect to the crosshair.
-        this.#scaleFactor = this.#scaleFactor - (this.#TRAIL_SIZE_MULTIPLIER * objElapsedTime);
+        let timeUntilDestruct = this.#destructionTime - timestamp;
+        this.#scaleFactor = this.#TRAIL_SIZE_MULTIPLIER * timeUntilDestruct;
 
         let x = this.#xPos;
         let y = this.#yPos;

@@ -4,10 +4,9 @@ class TargetExplosion {
     #MIN_PARTICLE_SPEED = 1;
     #MAX_PARTICLE_SPEED = 3;
 
-    // #PARTICLE_FADE_RATE = 0.00003;
-    #PARTICLE_FADE_RATE = 0.000001;
-    #PARTICLE_ROTATION_MULTIPLIER = 0.003;
-    #PARTICLE_SPEED_MULTIPLIER = 0.00001;
+    #PARTICLE_FADE_RATE = 0.0002;
+    #PARTICLE_ROTATION_MULTIPLIER = 0.4;
+    #PARTICLE_SPEED_MULTIPLIER = 0.21;
 
     #particles;
 
@@ -28,6 +27,8 @@ class TargetExplosion {
 
         for (let i = 0; i < numOfParticles; i++) {
             const partObj = {
+                origX: xPos,
+                origY: yPos,
                 x: xPos,
                 y: yPos,
                 angle: this.#getRandomAngle(),
@@ -112,16 +113,17 @@ class TargetExplosion {
 
             // After drawing particle, increment it's position.
             const angleRads = this.#degreesToRadians(particle.angle);
-            let speed = particle.speed + (this.#PARTICLE_SPEED_MULTIPLIER * objElapsedTime);
-            particle.x = particle.x + (speed * Math.cos(angleRads));
-            particle.y = particle.y + (speed * Math.sin(angleRads));
+            
+            let distanceTravelled = (this.#PARTICLE_SPEED_MULTIPLIER * objElapsedTime);
+
+            particle.x = particle.origX + (distanceTravelled * Math.cos(angleRads));
+            particle.y = particle.origY + (distanceTravelled * Math.sin(angleRads));
 
             // Decrease alpha value.
-            particle.alpha = particle.alpha - (this.#PARTICLE_FADE_RATE * objElapsedTime);
+            particle.alpha = 1 - (this.#PARTICLE_FADE_RATE * objElapsedTime);
 
             // Increase rotation
-            particle.rotation = particle.rotation
-                + (this.#PARTICLE_ROTATION_MULTIPLIER * objElapsedTime);
+            particle.rotation = this.#PARTICLE_ROTATION_MULTIPLIER * objElapsedTime;
 
             areAllParticlesInvisible = false;
         }

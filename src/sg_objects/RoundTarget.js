@@ -1,13 +1,13 @@
 class RoundTarget {
-    #EXPANSION_RATE = 0.00001;
-    #CONTRACTION_RATE = 0.00001;
+    #EXPANSION_RATE = 0.001;
+    #CONTRACTION_RATE = 0.001;
     #MIDDLE_CIRCLE_SF = 0.6;
     #INNER_CIRCLE_SF = 0.2;
 
     // Class variables.
     #xPos;
     #yPos;
-    #radius;    // Radius before scalefactor is applied.
+    #radius;                // Radius before scalefactor is applied.
 
     #scaleFactor;
     #maxScaleFactor;
@@ -19,6 +19,9 @@ class RoundTarget {
     #targetHit;
 
     #creationTimestamp;     // When the target was created in ms.
+
+    #timeContractionStarts; // Time the contraction started in ms.
+    #expansionTime;         // Difference between expansion start and contraction start.
 
     constructor(xPos, yPos, radius, creationTimeStamp) {
         this.#xPos = xPos;
@@ -43,8 +46,7 @@ class RoundTarget {
             this.#radius = radius;
     }
 
-    // Returns the radius before the scale factor or any other 
-    // transforms are applied.
+    // Returns the radius before the scale factor or any other transforms are applied.
     getRadius = () => {
         return this.#radius;
     }
@@ -77,18 +79,26 @@ class RoundTarget {
         this.#yPos = yPos;
     }
 
+
+
     draw = (context, timestamp) => {
         let objElapsedTime = timestamp - this.#creationTimestamp;
 
         if (this.#isExpanding === true) {
-            this.#scaleFactor = this.#scaleFactor + (this.#EXPANSION_RATE * objElapsedTime);
+            this.#scaleFactor = this.#EXPANSION_RATE * objElapsedTime;
 
             if (this.#scaleFactor >= this.#maxScaleFactor) {
                 this.#isExpanding = false;
                 this.#isContracting = true;
+
+                this.#timeContractionStarts = timestamp;
+                this.#expansionTime = this.#timeContractionStarts - this.#creationTimestamp;
             }
         } else if (this.#isContracting === true) {
-            this.#scaleFactor = this.#scaleFactor - (this.#CONTRACTION_RATE * objElapsedTime);
+            let timeSinceContraction = timestamp - this.#timeContractionStarts;
+            let contractionTimeExpired = this.#expansionTime - timeSinceContraction;
+
+            this.#scaleFactor = (this.#CONTRACTION_RATE * contractionTimeExpired);
 
             if (this.#scaleFactor <= 0) {
                 this.#isExpanding = false;
