@@ -28,6 +28,11 @@ class ShootingGallery extends React.Component {
     #TARG_INNER_HIT_SCORE = 40;
     #TARG_MISS_PENALTY = 40;
 
+    #startTimestamp;
+    #previousTimestamp;
+    #elapsedTime = 0;       // Elapsed game time in milliseconds.
+    #lastTargetDrawn = 0;   // Time in milliseconds since the last target was drawn.
+
     state = {
     }
 
@@ -53,10 +58,6 @@ class ShootingGallery extends React.Component {
 
     #animFrameReqId;     // Animation frame request ID for cancelling animation.
 
-    // Number of ticks expired since game has started.
-    // Divide by 60 to get the seconds.
-    #gameTicks;
-
     #gameStats;              // Stats class object for registering hits, etc.
 
     #handleResizeEvent;
@@ -75,8 +76,6 @@ class ShootingGallery extends React.Component {
         this.#canvasContainerDiv = React.createRef();
 
         this.#canvas = React.createRef();
-
-        this.#gameTicks = 0;
 
         this.#sounds = new Sounds();
         this.#sounds.setShouldPlayMusic(this.props.playMusic);
@@ -272,7 +271,6 @@ class ShootingGallery extends React.Component {
         if (this.#readyToRestart === true) {
             this.#sounds.stopMusic();
 
-            this.#gameTicks = 0;
             this.#resetTimerAndScore();
 
             this.#gameStarted = false;
@@ -291,9 +289,7 @@ class ShootingGallery extends React.Component {
 
             this.#startTimestamp = undefined;
             this.#previousTimestamp = undefined;
-            // Elapsed game time in milliseconds.
             this.#elapsedTime = 0;
-            // Time in milliseconds that the last target was drawn.
             this.#lastTargetDrawn = 0;
 
             this.#beginAnimation();
@@ -342,14 +338,6 @@ class ShootingGallery extends React.Component {
 
         console.log("Game is now ready to restart!");
     }
-
-    // MATT
-    #startTimestamp;
-    #previousTimestamp;
-    // Elapsed game time in milliseconds. 1000 milliseconds = 1 second.
-    #elapsedTime = 0;
-    // Time in milliseconds that the last target was drawn.
-    #lastTargetDrawn = 0;
 
     // Updates the animations on the canvas.
     // Gets called in relation to refresh rate on some Operating Systems.
