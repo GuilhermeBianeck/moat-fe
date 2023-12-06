@@ -1,44 +1,57 @@
 class BulletTrail {
     // Class variables.
-    xPos;
-    yPos;
-    size;
-    scaleFactor;
+    #xPos;
+    #yPos;
+    #size;
+    #scaleFactor;
 
-    markedForDestruct;
+    #TRAIL_SIZE_MULTIPLIER = 0.0009;
 
-    constructor(xPos, yPos) {
-        this.xPos = xPos;
-        this.yPos = yPos;
+    #markedForDestruct;
+
+    #creationTime;
+
+    constructor(xPos, yPos, creationTime) {
+        this.#xPos = xPos;
+        this.#yPos = yPos;
         
-        this.scaleFactor = 1.0;
-        this.size = 10;
-        this.markedForDestruct = false;
+        this.#creationTime = creationTime;
+
+        this.#scaleFactor = 1.0;
+        this.#size = 3;
+
+        this.#markedForDestruct = false;
     }
 
-    draw = (context) => {
+    draw = (context, timestamp) => {
+        let objElapsedTime = timestamp - this.#creationTime;
+
         context.fillStyle = "yellow";
 
         // Calculate coordinates so that trail is centered with respect to the crosshair.
-        let x = this.xPos - ((this.size * this.scaleFactor) / 2);
-        let y = this.yPos - ((this.size * this.scaleFactor) / 2);
+        this.#scaleFactor = this.#scaleFactor - (this.#TRAIL_SIZE_MULTIPLIER * objElapsedTime);
 
-        context.fillRect(x, y, this.size * this.scaleFactor, this.size * this.scaleFactor);
+        let x = this.#xPos;
+        let y = this.#yPos;
+
+        let radius = this.#size * this.#scaleFactor;
+
+        if (!(radius < 0)) {
+            context.arc(x, y, radius, 0, 2 * Math.PI);
+
+            context.fill();
+            context.closePath();
+        } else {
+            this.#markedForDestruct = true;
+        }
     }
 
     getScaleFactor = () => {
-        return this.scaleFactor;
-    }
-
-    setScaleFactor = (scaleFactor) => {
-        if (scaleFactor >= 0)
-            this.scaleFactor = scaleFactor;
-        else
-            this.markedForDestruct = true;
+        return this.#scaleFactor;
     }
 
     isMarkedForDestruct = () => {
-        return this.isMarkedForDestruct;
+        return this.#markedForDestruct;
     }
 }
 

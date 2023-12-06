@@ -58,7 +58,7 @@ class ShootingGallery extends React.Component {
 
     #animFrameReqId;     // Animation frame request ID for cancelling animation.
 
-    #gameStats;              // Stats class object for registering hits, etc.
+    #gameStats;          // Stats class object for registering hits, etc.
 
     #handleResizeEvent;
     #prevHeight;
@@ -366,7 +366,7 @@ class ShootingGallery extends React.Component {
 
         this.#drawTargetExplosions(timestamp);
         this.#drawRoundTargets(timestamp);
-        this.#drawBulletTrail();
+        this.#drawBulletTrail(timestamp);
         this.#drawPointsExplosions(timestamp);
         this.#sGTimer.drawTimer(this.#context, (this.#gameLength - this.#getGameTime()).toFixed(1));
         this.#score.draw(this.#context);
@@ -542,14 +542,14 @@ class ShootingGallery extends React.Component {
         }
     }
 
-    #drawBulletTrail = () => {
+    #drawBulletTrail = (timestamp) => {
         if (this.#bulletTrail !== undefined && this.#bulletTrail !== null) {
-            // Calculate Bullet Trail scale factor.
-            let scaleFactor = this.#bulletTrail.getScaleFactor() - 0.1;
-
-            this.#bulletTrail.setScaleFactor(scaleFactor);
-
-            this.#bulletTrail.draw(this.#context);
+            if (this.#bulletTrail.isMarkedForDestruct() === true) {
+                this.#bulletTrail = null;
+            } else {
+                // Calculate Bullet Trail scale factor.
+                this.#bulletTrail.draw(this.#context, timestamp);
+            }
         }
     }
 
@@ -615,7 +615,7 @@ class ShootingGallery extends React.Component {
         }
 
         // Create bullet trail.
-        this.#bulletTrail = new BulletTrail(coorObj.xPos, coorObj.yPos);
+        this.#bulletTrail = new BulletTrail(coorObj.xPos, coorObj.yPos, this.#previousTimestamp);
 
         if (targetWasHit) {
             this.#gameStats.registerHit();

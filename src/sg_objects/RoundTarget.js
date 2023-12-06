@@ -124,53 +124,6 @@ class RoundTarget {
         context.closePath();
     }
 
-    /*
-    draw = (context) => {
-        if (this.#isExpanding === true) {
-            this.#scaleFactor = this.#scaleFactor + this.#EXPANSION_RATE;
-
-            if (this.#scaleFactor >= this.#maxScaleFactor) {
-                this.#isExpanding = false;
-                this.#isContracting = true;
-            }
-        } else if (this.#isContracting === true) {
-            this.#scaleFactor = this.#scaleFactor - this.#CONTRACTION_RATE;
-
-            if (this.#scaleFactor <= 0) {
-                this.#isExpanding = false;
-                this.#isContracting = false;
-
-                this.#markedForDestruct = true;
-                this.#scaleFactor = 0;
-                this.#radius = 0;
-            }
-        }
-
-        // Draw outer circle.
-        context.beginPath();
-        context.fillStyle = "#ff0000";
-        context.arc(this.#xPos, this.#yPos, this.#radius * this.#scaleFactor, 0, 2 * Math.PI);
-        context.fill();
-        context.closePath();
-
-        // Draw middle circle.
-        context.beginPath();
-        context.fillStyle = "white";
-        context.arc(this.#xPos, this.#yPos,
-                this.#radius * this.#MIDDLE_CIRCLE_SF * this.#scaleFactor, 0, 2 * Math.PI);
-        context.fill();
-        context.closePath();
-
-        // Draw inner circle.
-        context.beginPath();
-        context.fillStyle = "blue";
-        context.arc(this.#xPos, this.#yPos, 
-                this.#radius * this.#INNER_CIRCLE_SF * this.#scaleFactor, 0, 2 * Math.PI);
-        context.fill();
-        context.closePath();
-    }
-    */
-
     /**
      * Checks if the current position is inside the target object.
      * 
