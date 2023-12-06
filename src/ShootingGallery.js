@@ -288,6 +288,15 @@ class ShootingGallery extends React.Component {
             this.#animFrameReqId = null;
 
             this.#gameStarted = true;
+
+            this.#startTimestamp = undefined;
+            this.#previousTimestamp = undefined;
+            this.#currentTimestamp = undefined;
+            // Elapsed game time in milliseconds. 1000 milliseconds = 1 second.
+            this.#elapsedTime = 0;
+            // Time in milliseconds that the last target was drawn.
+            this.#lastTargetDrawn = 0;
+
             this.#beginAnimation();
         } else {
             console.log("Game is not ready to restart!");
@@ -338,6 +347,7 @@ class ShootingGallery extends React.Component {
     // MATT
     #startTimestamp;
     #previousTimestamp;
+    #currentTimestamp;
     // Elapsed game time in milliseconds. 1000 milliseconds = 1 second.
     #elapsedTime = 0;
     // Time in milliseconds that the last target was drawn.
@@ -354,6 +364,7 @@ class ShootingGallery extends React.Component {
 
             // Timestamp is in milliseconds.
             this.#elapsedTime = timestamp - this.#startTimestamp;        
+            this.#currentTimestamp = timestamp;
         }
 
         // Check that the game time hasn't expired.
@@ -368,7 +379,7 @@ class ShootingGallery extends React.Component {
         // Clear screen.
         this.#drawBackground();
 
-        this.#drawTargetExplosions();
+        this.#drawTargetExplosions(timestamp);
         this.#drawRoundTargets(timestamp);
         this.#drawBulletTrail();
         this.#drawPointsExplosions();
@@ -535,14 +546,14 @@ class ShootingGallery extends React.Component {
         }
     }
 
-    #drawTargetExplosions = () => {
+    #drawTargetExplosions = (timestamp) => {
         const myIterator = this.#targetExplosions.values();
 
         for (const targetExplosion of myIterator) {
             if(targetExplosion.isMarkedForDestruct())
                 this.#targetExplosions.delete(targetExplosion);
             else
-                targetExplosion.draw(this.#context);
+                targetExplosion.draw(this.#context, timestamp);
         }
     }
 
@@ -640,7 +651,7 @@ class ShootingGallery extends React.Component {
     // and destroys the target.
     #playerHitTarget = (x, y, score, target) => {
         // Create target explosion.
-        const targetExplosion = new TargetExplosion(x, y);
+        const targetExplosion = new TargetExplosion(x, y, this.#currentTimestamp);
         this.#targetExplosions.add(targetExplosion);
 
         // Create point explosion.

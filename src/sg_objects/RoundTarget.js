@@ -80,9 +80,6 @@ class RoundTarget {
     draw = (context, timestamp) => {
         let objElapsedTime = timestamp - this.#creationTimestamp;
 
-        console.log("In draw method.");
-        console.log("Object elapsed time: " + objElapsedTime);
-
         if (this.#isExpanding === true) {
             this.#scaleFactor = this.#scaleFactor + (this.#EXPANSION_RATE * objElapsedTime);
 

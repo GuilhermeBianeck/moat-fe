@@ -4,17 +4,21 @@ class TargetExplosion {
     #MIN_PARTICLE_SPEED = 1;
     #MAX_PARTICLE_SPEED = 3;
 
-    //#PARTICLE_FADE_RATE = 0.01;
-    #PARTICLE_FADE_RATE = 0.015;
+    // #PARTICLE_FADE_RATE = 0.00003;
+    #PARTICLE_FADE_RATE = 0.000001;
 
     #particles;
 
     #markedForDestruct;
 
-    constructor(xPos, yPos, numOfParticles = 10) {
+    // Create time in milliseconds.
+    #creationTime;
+
+    constructor(xPos, yPos, creationTime, numOfParticles = 10) {
         this.#initParticles(xPos, yPos, numOfParticles);
 
         this.#markedForDestruct = false;
+        this.#creationTime = creationTime;
     }
 
     #initParticles = (xPos, yPos, numOfParticles) => {
@@ -73,8 +77,10 @@ class TargetExplosion {
         return this.#markedForDestruct;
     }
 
-    draw = (context) => {
+    draw = (context, timestamp) => {
         let areAllParticlesInvisible = true;
+
+        let objElapsedTime = timestamp - this.#creationTime;
 
         // Loop through particle objects and draw them.
         for (let i = 0; i < this.#particles.length; i++) {
@@ -104,14 +110,15 @@ class TargetExplosion {
 
             // After drawing particle, increment it's position.
             const angleRads = this.#degreesToRadians(particle.angle);
-            particle.x = particle.x + (particle.speed * Math.cos(angleRads));
-            particle.y = particle.y + (particle.speed * Math.sin(angleRads));
+            let speed = particle.speed + (0.00001 * objElapsedTime);
+            particle.x = particle.x + (speed * Math.cos(angleRads));
+            particle.y = particle.y + (speed * Math.sin(angleRads));
 
             // Decrease alpha value.
-            particle.alpha = particle.alpha - this.#PARTICLE_FADE_RATE;
+            particle.alpha = particle.alpha - (this.#PARTICLE_FADE_RATE * objElapsedTime);
 
             // Increase rotation
-            particle.rotation = particle.rotation + 2;
+            particle.rotation = particle.rotation + (0.01 * objElapsedTime);
 
             areAllParticlesInvisible = false;
         }
