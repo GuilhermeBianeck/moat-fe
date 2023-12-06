@@ -335,14 +335,30 @@ class ShootingGallery extends React.Component {
         console.log("Game is now ready to restart!");
     }
 
+    // MATT
+    #startTimestamp;
+    #previousTimestamp;
+    // Elapsed game time in milliseconds. 1000 milliseconds = 1 second.
+    #elapsedTime = 0;
+    // Time in milliseconds that the last target was drawn.
+    #lastTargetDrawn = 0;
+
     // Updates the animations on the canvas.
-    // Gets called 60 times per second.
-    #updateProgress = () => {
-        this.#gameTicks++;
+    // Gets called in relation to refresh rate on some Operating Systems.
+    // For example, a 144hz refresh rate will call the callback function 144 times per second.
+    #updateProgress = (timestamp) => {
+        if (timestamp !== undefined) {
+            if (this.#startTimestamp === undefined) {
+                this.#startTimestamp = timestamp;
+            }
+
+            // Timestamp is in milliseconds.
+            this.#elapsedTime = timestamp - this.#startTimestamp;        
+        }
 
         // Check that the game time hasn't expired.
-        let gameLengthInTicks = this.#gameLength * 60;
-        if (gameLengthInTicks < this.#gameTicks) {
+        let gameLengthInMilliS = this.#gameLength * 1000;
+        if (gameLengthInMilliS < this.#elapsedTime) {
             console.log("Game timer has expired!");
             this.#finishGame();
 
@@ -353,19 +369,26 @@ class ShootingGallery extends React.Component {
         this.#drawBackground();
 
         this.#drawTargetExplosions();
-        this.#drawRoundTargets();
+        this.#drawRoundTargets(timestamp);
         this.#drawBulletTrail();
         this.#drawPointsExplosions();
         this.#sGTimer.drawTimer(this.#context, (this.#gameLength - this.#getGameTime()).toFixed(1));
         this.#score.draw(this.#context);
 
-        // Every 2 seconds, do something.
-        if (this.#gameTicks % 120 === 0) {
-        }
+        if (this.#lastTargetDrawn === undefined) {
+            this.#createRoundTarget(timestamp);
+            this.#lastTargetDrawn = timestamp;
+        } else {
+            // Calculate how many times to draw the target in milliseconds.
+            let drawTargetInterval = 1000 / this.#targetsPerSecond;
 
-        // Spawn a target based on targetsPerSecond.
-        if (this.#gameTicks % (60 / this.#targetsPerSecond) === 0) {
-            this.#createRoundTarget();
+            if ((this.#elapsedTime - this.#lastTargetDrawn) > drawTargetInterval) {
+                console.log("Drawing target.");
+                console.log("Elapsed time: " + this.#elapsedTime);
+
+                this.#createRoundTarget(timestamp);
+                this.#lastTargetDrawn = this.#elapsedTime;
+            }
         }
 
         // Finished handling resize event.
@@ -373,11 +396,13 @@ class ShootingGallery extends React.Component {
             this.#handleResizeEvent = false;
 
         this.#animFrameReqId = requestAnimationFrame(this.#updateProgress);
+
+        this.#previousTimestamp = timestamp;
     }
 
     // Returns the game time in seconds.
     #getGameTime = () => {
-        let gameTime = this.#gameTicks / 60;
+        let gameTime = this.#elapsedTime / 1000;
 
         return gameTime;
     }
@@ -411,7 +436,7 @@ class ShootingGallery extends React.Component {
             return this.#canvas.current.width / this.#CANVAS_INIT_WIDTH;
     }
 
-    #createRoundTarget = () => {
+    #createRoundTarget = (timestamp) => {
         if (this.#canvas.current !== null) {
             let targetRadius = this.#getTargetRadius();
 
@@ -420,7 +445,7 @@ class ShootingGallery extends React.Component {
 
             let coorObj = this.#checkAndReposOffScreenTarget(randX, randY, targetRadius);
 
-            let roundTarget = new RoundTarget(coorObj.xPos, coorObj.yPos, targetRadius);
+            let roundTarget = new RoundTarget(coorObj.xPos, coorObj.yPos, targetRadius, timestamp);
             this.#roundTargets.add(roundTarget);
         }
     }
@@ -443,7 +468,7 @@ class ShootingGallery extends React.Component {
         return {xPos, yPos};
     }
 
-    #drawRoundTargets = () => {
+    #drawRoundTargets = (timestamp) => {
         // Loop through round targets set and draw them.
         const myIterator = this.#roundTargets.values();
 
@@ -495,7 +520,7 @@ class ShootingGallery extends React.Component {
             }
 
             // Finally, draw the target.
-            roundTarget.draw(this.#context);
+            roundTarget.draw(this.#context, timestamp);
         }
     }
 
