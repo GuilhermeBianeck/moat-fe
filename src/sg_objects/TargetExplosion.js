@@ -6,6 +6,8 @@ class TargetExplosion {
 
     // #PARTICLE_FADE_RATE = 0.00003;
     #PARTICLE_FADE_RATE = 0.000001;
+    #PARTICLE_ROTATION_MULTIPLIER = 0.003;
+    #PARTICLE_SPEED_MULTIPLIER = 0.00001;
 
     #particles;
 
@@ -110,7 +112,7 @@ class TargetExplosion {
 
             // After drawing particle, increment it's position.
             const angleRads = this.#degreesToRadians(particle.angle);
-            let speed = particle.speed + (0.00001 * objElapsedTime);
+            let speed = particle.speed + (this.#PARTICLE_SPEED_MULTIPLIER * objElapsedTime);
             particle.x = particle.x + (speed * Math.cos(angleRads));
             particle.y = particle.y + (speed * Math.sin(angleRads));
 
@@ -118,7 +120,8 @@ class TargetExplosion {
             particle.alpha = particle.alpha - (this.#PARTICLE_FADE_RATE * objElapsedTime);
 
             // Increase rotation
-            particle.rotation = particle.rotation + (0.01 * objElapsedTime);
+            particle.rotation = particle.rotation
+                + (this.#PARTICLE_ROTATION_MULTIPLIER * objElapsedTime);
 
             areAllParticlesInvisible = false;
         }

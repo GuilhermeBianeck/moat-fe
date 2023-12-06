@@ -9,10 +9,17 @@ class PointExplosion {
 
     markedForDestruct;
 
-    constructor(points, xPos, yPos, fontStyle, hit) {
+    creationTime;
+
+    YOFFSET_MULTIPLIER = 0.02;
+    TRANSPARENCY_MULTIPLIER = 0.001;
+
+    constructor(points, xPos, yPos, fontStyle, hit, creationTime) {
         this.points = points;
         this.xPos = xPos;
         this.yPos = yPos;
+
+        this.creationTime = creationTime;
 
         this.yOffset = 0;
         this.alpha = 1.0;
@@ -25,10 +32,11 @@ class PointExplosion {
             this.hit = false;
     }
 
-    // Draw is called 60 times a second.
-    draw = (context) => {
-        this.yOffset = this.yOffset - 0.1;
-        this.alpha = this.alpha - 0.01;
+    draw = (context, timestamp) => {
+        let objElapsedTime = timestamp - this.creationTime;
+
+        this.yOffset = (this.YOFFSET_MULTIPLIER * objElapsedTime);
+        this.alpha = 1 - (this.TRANSPARENCY_MULTIPLIER * objElapsedTime);
 
         // If point explosion is not visible anymore
         if (this.alpha <= 0.0) {
@@ -46,7 +54,7 @@ class PointExplosion {
         context.font = this.fontStyle;
         context.textAlign = "center";
         context.textBaseLine = "middle";
-        context.fillText(this.points, this.xPos, this.yPos + this.yOffset);
+        context.fillText(this.points, this.xPos, this.yPos - this.yOffset);
     }
 
     isMarkedForDestruct = () => {
