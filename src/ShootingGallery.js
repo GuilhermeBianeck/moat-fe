@@ -375,12 +375,10 @@ class ShootingGallery extends React.Component {
             this.#createRoundTarget(timestamp);
             this.#lastTargetDrawn = timestamp;
         } else {
-            // Calculate how many times to draw the target in milliseconds.
+            // Calculate when to create a new target (in milliseconds).
             let drawTargetInterval = 1000 / this.#targetsPerSecond;
 
             if ((this.#elapsedTime - this.#lastTargetDrawn) > drawTargetInterval) {
-                console.log("Drawing target.");
-                console.log("Elapsed time: " + this.#elapsedTime);
 
                 this.#createRoundTarget(timestamp);
                 this.#lastTargetDrawn = this.#elapsedTime;
