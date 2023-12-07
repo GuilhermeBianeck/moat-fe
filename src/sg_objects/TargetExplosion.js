@@ -6,7 +6,7 @@ class TargetExplosion {
 
     #PARTICLE_FADE_RATE = 0.0002;
     #PARTICLE_ROTATION_MULTIPLIER = 0.4;
-    #PARTICLE_SPEED_MULTIPLIER = 0.21;
+    #PARTICLE_SPEED_MULTIPLIER = 0.15;
 
     #particles;
 
