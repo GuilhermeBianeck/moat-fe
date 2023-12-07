@@ -114,7 +114,9 @@ class TargetExplosion {
             // After drawing particle, increment it's position.
             const angleRads = this.#degreesToRadians(particle.angle);
             
-            let distanceTravelled = (this.#PARTICLE_SPEED_MULTIPLIER * objElapsedTime);
+            //let distanceTravelled = (this.#PARTICLE_SPEED_MULTIPLIER * objElapsedTime);
+            let distanceTravelled = (particle.speed
+                    * this.#PARTICLE_SPEED_MULTIPLIER * objElapsedTime);
 
             particle.x = particle.origX + (distanceTravelled * Math.cos(angleRads));
             particle.y = particle.origY + (distanceTravelled * Math.sin(angleRads));

@@ -22,7 +22,7 @@ class MainMenu extends React.Component {
                             evt.preventDefault();
                             this.props.showLeaderBoard(true);
                         }}
-                    >Leaderboards</a></li>
+                    >Leaderboard</a></li>
 
                     <li><a href="#"
                         onClick={(evt) => {
