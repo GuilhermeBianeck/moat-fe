@@ -197,6 +197,7 @@ class ShootingGallery extends React.Component {
 
     /**
      * Gets called whenever the browser has sensed that the canvas has been resized.
+     * @param evt An Event object created by the resize event.
      */
     #resizeEventListener = (evt) => {
         console.log("SG Container div was resized.");
