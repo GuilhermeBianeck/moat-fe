@@ -30,7 +30,6 @@ class Score {
         context.fillText(message, this.#xPos, this.#yPos);
     }
 
-    // TODO: lock?
     increaseScore = (value) => {
         this.#playerScore = this.#playerScore + value;
     }

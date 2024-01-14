@@ -1,5 +1,4 @@
 class SGTimer {
-    // Class variables.
     xPos;
     yPos;
     fontStyle;

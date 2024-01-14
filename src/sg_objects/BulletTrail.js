@@ -1,5 +1,7 @@
+/**
+ * A class representing the after-effect of the User firing a weapon.
+ */
 class BulletTrail {
-    // Class variables.
     #xPos;
     #yPos;
     #size;

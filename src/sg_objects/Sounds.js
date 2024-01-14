@@ -8,6 +8,9 @@ import track03F from './sounds/track03.mp3';
 import track04F from './sounds/track04.mp3';
 import track05F from './sounds/track05.mp3';
 
+/**
+ * A class to handle the playing of sourds and music.
+ */
 class Sounds {
     NUM_TRACKS = 5;
     INTRO_TRACK_INDEX = 0;
@@ -62,12 +65,22 @@ class Sounds {
         this.lastKnownCurrentTime = 0;
     }
 
+    /**
+     * Loads a music file into memory.
+     * @param trackObj An Audio object containing the file to load.
+     * @param volume A floating point number between 0 and 1 to represent the volume to play.
+     */
     loadTrack = (trackObj, volume) => {
         trackObj.load();
         trackObj.loop = true;
         trackObj.volume = volume;
     }
 
+    /**
+     * Plays the supplied sound.
+     * @param soundRsrc An Audio object containing the file to play.
+     * @param volume A floating point number between 0 and 1 to represent the volume to play.
+     */
     #playSound = (soundRsrc, volume) => {
         try {
             let audioElem = new Audio(soundRsrc);
@@ -82,11 +95,18 @@ class Sounds {
         }
     }
 
+    /**
+     * Plays the supplied music track.
+     * @param track An Audio object containing the file to play.
+     */
     #playTrack = (track) => {
         console.log("Playing music track.");
         track.play().catch(console.warn);
     }
 
+    /**
+     * Plays the default shooting sound.
+     */
     playShot = () => {
         if (this.shouldPlaySounds === false)
             return;
@@ -94,6 +114,9 @@ class Sounds {
         this.#playSound(shot, 0.6);
     }
 
+    /**
+     * Plays the default miss sound.
+     */
     playMiss = () => {
         if (this.shouldPlaySounds === false)
             return;
@@ -101,6 +124,9 @@ class Sounds {
         this.#playSound(miss);
     }
 
+    /**
+     * Plays the default hit sound.
+     */
     playHit = () => {
         if (this.shouldPlaySounds === false)
             return;
@@ -108,6 +134,9 @@ class Sounds {
         this.#playSound(ding);
     }
 
+    /**
+     * Plays the default disappear sound.
+     */
     playDisappear = () => {
         if (this.shouldPlaySounds === false)
             return;
@@ -115,6 +144,9 @@ class Sounds {
         this.#playSound(disappear, 0.4);
     }
 
+    /**
+     * Plays the Game music.
+     */
     playMusic = () => {
         if (this.shouldPlayMusic === false)
             return;
@@ -139,6 +171,9 @@ class Sounds {
         this.currentTrack = trackNum;
     }
 
+    /**
+     * Stops playing the Game music.
+     */
     stopMusic = () => {
         this.lastKnownCurrentTime = this.tracks[this.currentTrack].currentTime;
         //console.log("currentTime: " + this.tracks[this.currentTrack].currentTime);

@@ -65,7 +65,9 @@ class TargetExplosion {
         return angle;
     }
 
-    // Returns an integer between 0 and 255 inclusive;
+    /**
+     * Returns an integer between 0 and 255 inclusive.
+     */
     #getRandomColourElem = () => {
         let colour = Math.floor(Math.random() * 256);
 
@@ -114,7 +116,6 @@ class TargetExplosion {
             // After drawing particle, increment it's position.
             const angleRads = this.#degreesToRadians(particle.angle);
             
-            //let distanceTravelled = (this.#PARTICLE_SPEED_MULTIPLIER * objElapsedTime);
             let distanceTravelled = (particle.speed
                     * this.#PARTICLE_SPEED_MULTIPLIER * objElapsedTime);
 

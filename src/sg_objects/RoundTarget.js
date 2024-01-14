@@ -4,7 +4,6 @@ class RoundTarget {
     #MIDDLE_CIRCLE_SF = 0.6;
     #INNER_CIRCLE_SF = 0.2;
 
-    // Class variables.
     #xPos;
     #yPos;
     #radius;                // Radius before scalefactor is applied.
@@ -46,7 +45,9 @@ class RoundTarget {
             this.#radius = radius;
     }
 
-    // Returns the radius before the scale factor or any other transforms are applied.
+    /**
+     * Returns the radius before the scale factor or any other transforms are applied.
+     */
     getRadius = () => {
         return this.#radius;
     }
