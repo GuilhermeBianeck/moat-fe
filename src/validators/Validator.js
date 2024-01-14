@@ -11,7 +11,7 @@ class Validator {
     /**
      * A function to validate a selected Difficulty.
      * @param difficulty The Difficulty object to validate.
-     * @returns A boolean object with 'true' for valid or 'false' for invalid.
+     * @return A boolean object with 'true' for valid or 'false' for invalid.
      */
     static validateDifficulty = (difficulty) => {
         console.log("Validating difficulty!");
@@ -27,7 +27,7 @@ class Validator {
     /**
      * A function to validate a supplied Nickname.
      * @parm nickname A String representing the Nickname to validate.
-     * @returns A boolean object with 'true' for valid or 'false' for invalid.
+     * @return A boolean object with 'true' for valid or 'false' for invalid.
      */ 
     static validateNickname = (nickname) => {
         console.log("Validating nickname!");

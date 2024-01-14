@@ -31,7 +31,7 @@ class Cookies {
      * Returns a cookie with the specified name. 
      * 
      * @param name The name of the cookie.
-     * @returns The value of the cookie or 'null' if not found.
+     * @return The value of the cookie or 'null' if not found.
      */
     getCookie = (name) => {
         let decodedCookies = decodeURIComponent(document.cookie);

@@ -6,6 +6,10 @@ class DeviceDetector {
         throw "DeviceDetector cannot be initialised!";
     }
 
+    /**
+     * Attempts to detect whether the User is using a mobile device to use the Application.
+     * @return A boolean representing true or false.
+     */
     static isMobileDevice = () => {
         // TODO: Add Android and Samsung.
         console.log("Detecting device.");
