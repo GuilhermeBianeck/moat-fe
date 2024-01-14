@@ -13,7 +13,6 @@ import Cookies from './cookies/Cookies.js';
 import GameStats from './sg_objects/GameStats.js';
 import TotalStats from './stats/TotalStats.js';
 
-//import Constants from './constants/Constants.js';
 import Difficulty from './constants/Difficulty.js'
 import URLConsts from './constants/URLConsts.js';
 
@@ -21,19 +20,21 @@ import Validator from './validators/Validator.js';
 import DeviceDetector from './device_detection/DeviceDetector.js';
 
 import './css/MOATApp.css';
-                                                                    
+
+/**
+ * The main application class.
+ */                                                                    
 class MOATApp extends React.Component {
     #RPC_LB_PATH = "/get-leaderboard/";
     #RPC_SEND_SCORE_PATH = "/send-score/";
 
-    #cookies;    // Cookies class object.
+    #cookies;                                   // Cookies class object.
 
     state = {
         leaderBoardVisible: false,
         aboutPageVisible: false,
         optionsPageVisible: false,
         statsPageVisible: false,
-
         adminPageVisible: false,
 
         nickname: "",
@@ -42,175 +43,72 @@ class MOATApp extends React.Component {
         playSounds: true,
         playMusic: true,
 
-        lastGameStats: null,    // The last game's GameStats class object.
-        totalGameStats: new TotalStats(),   // The TotalStats class object.
+        lastGameStats: null,                        // The last game's GameStats class object.
+        totalGameStats: new TotalStats(),           // The TotalStats class object.
 
         leaderBoard: [],
-
-        setLastGameStats: (gameStatsObj) => {
-            console.log("Setting last game stats.");
-
-            if (!gameStatsObj === typeof(GameStats)) {
-                console.log("Error: Not GameStats object.");
-                
-                return;
-            } else {
-                this.setState({ lastGameStats: gameStatsObj });
-
-                // Update total game stats.
-                if (this.state.totalGameStats !== null) {
-                    this.state.totalGameStats.incTotalHits(gameStatsObj.getHits());
-                    this.state.totalGameStats.incTotalMisses(gameStatsObj.getMisses());
-                    this.state.totalGameStats.incTotalDisappeared(
-                            gameStatsObj.getTargetsDisappeared());
-                    this.state.totalGameStats.incTotalGamesPlayed(1);
-
-                    this.saveStatsToCookie();
-                }
-            }
-        },
-
-        setTotalGameStats: (totalStatsObj) => {
-            console.log("Setting total game stats.");
-
-            if (!totalStatsObj === typeof(TotalStats)) {
-                console.log("Error: Not TotalStats object.");
-
-                return;
-            } else {
-                this.setState({ totalGameStats: totalStatsObj });
-            }
-        },
-
-        showLeaderBoard: (value) => {
-            if (value === true) {
-                this.populateLeaderBoard();
-                this.setState({ leaderBoardVisible: true });
-            } else {
-                this.setState({ leaderBoardVisible: false });
-            }
-        },
-
-        showStatsPage: (value) => {
-            if (value === true) {
-                this.setState({ statsPageVisible: true });
-            } else {
-                this.setState({ statsPageVisible: false });
-            }
-        },
-
-        showAboutPage: (value) => {
-            if (value === true) {
-                this.setState({ aboutPageVisible: true });
-            } else {
-                this.setState({ aboutPageVisible: false });
-            }
-        },
-
-        showOptionsPage: (value) => {
-            if (value === true) {
-                this.setState({ optionsPageVisible: true });
-            } else {
-                this.setState({ optionsPageVisible: false });
-            }
-        },
-
-        showWelcomeScreen: (value) => {
-            if (value === true) {
-                this.setState({ welcomeScreenVisible: true });
-            } else {
-                this.setState({ welcomeScreenVisible: false });
-            }
-        },
-
-        setPlaySounds: (value) => {
-            if (DeviceDetector.isMobileDevice()) {
-                this.setState({playSounds: false});
-
-                return;
-            }
-
-            if (value === true || value === "true") {
-                this.setState({playSounds: true});
-            } else {
-                this.setState({playSounds: false});
-            }
-        },
-
-        setPlayMusic: (value) => {
-            if (DeviceDetector.isMobileDevice()) {
-                this.setState({playMusic: false});
-
-                return;
-            }
-
-            if (value === true || value === "true") {
-                this.setState({ playMusic: true });
-            } else {
-                this.setState({ playMusic: false });
-            }
-        },
-
-        setDifficulty: (value) => {
-            if (Validator.validateDifficulty(value))
-                this.setState({ difficulty: value });
-            else
-                this.setState({ difficulty: Difficulty.DEFAULT_DIFFICULTY });
-        },
-
-        // Returns true is change was successful.
-        setNickname: (name) => {
-            console.log("Setting nickname.");
-            if (Validator.validateNickname(name)) {
-                this.setState({ nickname: name });
-
-                return true;
-            }
-            else {
-                return false;
-            }
-        },
-
-        sendScoreToServer: (score) => {
-            console.log("Sending score to server.");
-
-            let url = `${URLConsts.RPC_BASE_URL}${this.#RPC_SEND_SCORE_PATH}`;
-
-            let scoreObj = {
-                score: score,
-                nickname: this.state.nickname
-            }
-
-            const fetchOptions = {
-                method: "POST",
-                body: JSON.stringify(scoreObj),
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            }
-
-            fetch(url, fetchOptions).then((response) => {
-                response.json().then((wasHighScore) => {
-                    // If was a high score then do something here.
-                    // TODO: Celebration animation?
-                    if (wasHighScore) {
-                        console.log("High score registered!");
-                    }
-                })
-                .catch(() => {
-                    console.log("ERROR: Cannot parse response from server.");
-                });
-            })
-            .catch(() => {console.log("ERROR: Cannot connect to server.")});
-
-            //TODO: return false or true if new high score.
-        }
     }
 
     constructor(props) {
         super(props);
 
         this.#cookies = new Cookies();
+    }
+
+    render() {
+        let mainBody;
+
+        if (this.state.adminPageVisible) {
+            mainBody = <AdminPage />
+        } else {
+            mainBody = <Body difficulty={this.state.difficulty}
+                    playMusic={this.state.playMusic}
+                    playSounds={this.state.playSounds} 
+                    setLastGameStats={this.setLastGameStats} 
+                    sendScoreToServer={this.sendScoreToServer} />
+        }
+
+        return (
+            <div className="MOATApp">
+                <Header showLeaderBoard={this.showLeaderBoard}
+                        showAboutPage={this.showAboutPage}
+                        showOptionsPage={this.showOptionsPage} 
+                        showStatsPage={this.showStatsPage} 
+                        hideAdminPage={this.hideAdminPage}
+                    />
+
+                {mainBody}
+
+                <Footer showAdminPage={this.showAdminPage} />
+
+                {this.state.leaderBoardVisible ?
+                    <LeaderBoard showLeaderBoard={this.showLeaderBoard} 
+                        leaderBoard={this.state.leaderBoard} /> : null}
+
+                {this.state.aboutPageVisible ?
+                    <About showAboutPage={this.showAboutPage} /> : null}
+
+                {this.state.statsPageVisible ?
+                    <Stats showStatsPage={this.showStatsPage} 
+                            lastGameStats={this.state.lastGameStats} 
+                            totalGameStats={this.state.totalGameStats} /> : null}
+
+                {this.state.optionsPageVisible ?
+                    <Options showOptionsPage={this.showOptionsPage}
+                            setPlaySounds={this.setPlaySounds}
+                            setPlayMusic={this.setPlayMusic}
+                            playSounds={this.state.playSounds}
+                            playMusic={this.state.playMusic}
+                            nickname={this.state.nickname}
+                            setNickname={this.setNickname}
+                            difficulty={this.state.difficulty}
+                            setDifficulty={this.setDifficulty} /> : null}
+
+                {!Validator.validateNickname(this.state.nickname) ?
+                    <WelcomeScreen setNickname={this.setNickname}
+                            showWelcomeScreen={this.showWelcomeScreen} /> : null}
+            </div>
+        );
     }
 
     componentDidMount = () => {
@@ -263,10 +161,13 @@ class MOATApp extends React.Component {
 
         let nickname = this.#cookies.getCookie("nickname");
 
-        if (!this.state.setNickname(nickname))
+        if (!this.setNickname(nickname))
             console.log("Failed loading nickname from cookie!");
     }
 
+    /**
+     * Saves the User's game Options into the cookie.
+     */
     saveOptionsToCookie = () => {
         console.log("Saving options cookies.");
 
@@ -275,7 +176,9 @@ class MOATApp extends React.Component {
         this.#cookies.setCookie("playMusic", this.state.playMusic);
     }
 
-    // Save the total stats to the cookie.
+    /**
+     * Saves the User's game Stats into the cookie.
+     */
     saveStatsToCookie = () => {
         console.log("Saving total stats cookies.");
 
@@ -285,7 +188,9 @@ class MOATApp extends React.Component {
         this.#cookies.setCookie("totalGamesPlayed", this.state.totalGameStats.getTotalGamesPlayed());
     }
 
-    // Load the total stats from the cookie.
+    /**
+     * Loads the user's total Stats from the cookie.  
+     */
     loadStatsFromCookie = () => {
         console.log("Loading total stats from cookies.");
 
@@ -307,6 +212,9 @@ class MOATApp extends React.Component {
             this.state.totalGameStats.setTotalGamesPlayed(totalGamesPlayed);
     }
 
+    /**
+     * Loads the User's Options from the cookie.
+     */
     loadOptionsFromCookie = () => {
         console.log("Loading options cookies.");
 
@@ -315,15 +223,18 @@ class MOATApp extends React.Component {
         let playMusic = this.#cookies.getCookie("playMusic");
 
         if (difficulty !== null)
-            this.state.setDifficulty(difficulty);
+            this.setDifficulty(difficulty);
 
         if (playMusic !== null)
-            this.state.setPlayMusic(playMusic);
+            this.setPlayMusic(playMusic);
 
         if (playSounds !== null)
-            this.state.setPlaySounds(playSounds);
+            this.setPlaySounds(playSounds);
     }
 
+    /**
+     * Connects to the MOAT Server and fetches the Leaderboard data and populates it.
+     */
     populateLeaderBoard = () => {
         console.log("Populating leaderboard data.");
 
@@ -359,61 +270,207 @@ class MOATApp extends React.Component {
         this.setState({adminPageVisible: false});
     }
 
-    render() {
-        let mainBody;
+    /**
+     * Saves the Stats from the last game in the cookie file and updates the current Stats in the
+     * state.
+     * @param gameStatsObj A GameStats object that contains the Stats from the last game.
+     */
+    setLastGameStats = (gameStatsObj) => {
+        console.log("Setting last game stats.");
 
-        if (this.state.adminPageVisible) {
-            mainBody = <AdminPage />
+        if (!gameStatsObj === typeof(GameStats)) {
+            console.log("Error: Not GameStats object.");
+            
+            return;
         } else {
-            mainBody = <Body difficulty={this.state.difficulty}
-                    playMusic={this.state.playMusic}
-                    playSounds={this.state.playSounds} 
-                    setLastGameStats={this.state.setLastGameStats} 
-                    sendScoreToServer={this.state.sendScoreToServer} />
+            this.setState({ lastGameStats: gameStatsObj });
+
+            // Update total game stats.
+            if (this.state.totalGameStats !== null) {
+                this.state.totalGameStats.incTotalHits(gameStatsObj.getHits());
+                this.state.totalGameStats.incTotalMisses(gameStatsObj.getMisses());
+                this.state.totalGameStats.incTotalDisappeared(
+                        gameStatsObj.getTargetsDisappeared());
+                this.state.totalGameStats.incTotalGamesPlayed(1);
+
+                this.saveStatsToCookie();
+            }
+        }
+    }
+
+    /**
+     * Sets the TotalStats object in state representing the User's total Stats.
+     * @param totalStatsObj A TotalStats object to save into state.
+    */
+    setTotalGameStats = (totalStatsObj) => {
+        console.log("Setting total game stats.");
+
+        if (!totalStatsObj === typeof(TotalStats)) {
+            console.log("Error: Not TotalStats object.");
+
+            return;
+        } else {
+            this.setState({ totalGameStats: totalStatsObj });
+        }
+    }
+
+    /**
+     * Shows the LeaderBoard overlay.
+     */
+    showLeaderBoard = (value) => {
+        if (value === true) {
+            this.populateLeaderBoard();
+            this.setState({ leaderBoardVisible: true });
+        } else {
+            this.setState({ leaderBoardVisible: false });
+        }
+    }    
+
+    /**
+     * Shows the Stats overlay.
+     */
+    showStatsPage = (value) => {
+        if (value === true) {
+            this.setState({ statsPageVisible: true });
+        } else {
+            this.setState({ statsPageVisible: false });
+        }
+    }
+
+    /**
+     * Shows the About overlay.
+     */
+    showAboutPage = (value) => {
+        if (value === true) {
+            this.setState({ aboutPageVisible: true });
+        } else {
+            this.setState({ aboutPageVisible: false });
+        }
+    }
+
+    /**
+     * Shows the Options overlay.
+     */
+    showOptionsPage = (value) => {
+        if (value === true) {
+            this.setState({ optionsPageVisible: true });
+        } else {
+            this.setState({ optionsPageVisible: false });
+        }
+    }  
+
+    /**
+     * Shows the screen 
+     */
+    showWelcomeScreen = (value) => {
+        if (value === true) {
+            this.setState({ welcomeScreenVisible: true });
+        } else {
+            this.setState({ welcomeScreenVisible: false });
+        }
+    }
+
+    /**
+     * Sets whether the game should play sounds or not.
+     * @param value A Boolean value indicating true or false.
+     */
+    setPlaySounds = (value) => {
+        if (DeviceDetector.isMobileDevice()) {
+            this.setState({ playSounds: false });
+
+            return;
         }
 
-        return (
-            <div className="MOATApp">
-                <Header showLeaderBoard={this.state.showLeaderBoard}
-                        showAboutPage={this.state.showAboutPage}
-                        showOptionsPage={this.state.showOptionsPage} 
-                        showStatsPage={this.state.showStatsPage} 
-                        hideAdminPage={this.hideAdminPage}
-                    />
-
-                {mainBody}
-
-                <Footer showAdminPage={this.showAdminPage} />
-
-                {this.state.leaderBoardVisible ?
-                    <LeaderBoard showLeaderBoard={this.state.showLeaderBoard} 
-                        leaderBoard={this.state.leaderBoard} /> : null}
-
-                {this.state.aboutPageVisible ?
-                    <About showAboutPage={this.state.showAboutPage} /> : null}
-
-                {this.state.statsPageVisible ?
-                    <Stats showStatsPage={this.state.showStatsPage} 
-                            lastGameStats={this.state.lastGameStats} 
-                            totalGameStats={this.state.totalGameStats} /> : null}
-
-                {this.state.optionsPageVisible ?
-                    <Options showOptionsPage={this.state.showOptionsPage}
-                            setPlaySounds={this.state.setPlaySounds}
-                            setPlayMusic={this.state.setPlayMusic}
-                            playSounds={this.state.playSounds}
-                            playMusic={this.state.playMusic}
-                            nickname={this.state.nickname}
-                            setNickname={this.state.setNickname}
-                            difficulty={this.state.difficulty}
-                            setDifficulty={this.state.setDifficulty} /> : null}
-
-                {!Validator.validateNickname(this.state.nickname) ?
-                    <WelcomeScreen setNickname={this.state.setNickname}
-                            showWelcomeScreen={this.state.showWelcomeScreen} /> : null}
-            </div>
-        );
+        if (value === true || value === "true") {
+            this.setState({ playSounds: true });
+        } else {
+            this.setState({ playSounds: false });
+        }
     }
+
+    /**
+     * Sets whether the game should play music or not.
+     * @param value A Boolean value indicating true or false.
+     */
+    setPlayMusic = (value) => {
+        if (DeviceDetector.isMobileDevice()) {
+            this.setState({ playMusic: false });
+
+            return;
+        }
+
+        if (value === true || value === "true") {
+            this.setState({ playMusic: true });
+        } else {
+            this.setState({ playMusic: false });
+        }
+    }
+
+    /**
+     * Sets the game Difficulty.
+     * @example setDifficulty(Difficulty.MAX_DIFFICULTY);
+     * @param A Difficulty object representing the difficulty.
+     */
+    setDifficulty = (value) => {
+        if (Validator.validateDifficulty(value))
+            this.setState({ difficulty: value });
+        else
+            this.setState({ difficulty: Difficulty.DEFAULT_DIFFICULTY });
+    }
+
+    /**
+     * Validates and sets the User's Nickname.  If validation fails, then the Nickname will not 
+     * be changed.
+     * @param name A String representing the User's Nickname.
+     * @returns A Boolean object indicating whether the request was successful or not.
+     */
+    setNickname = (name) => {
+        console.log("Setting nickname.");
+        if (Validator.validateNickname(name)) {
+            this.setState({ nickname: name });
+
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    /**
+     * Sends the specified Score to the MOAT Server to register it.
+     * @param score A int value representing the Score.
+     */
+    sendScoreToServer = (score) => {
+        console.log("Sending score to server.");
+
+        let url = `${URLConsts.RPC_BASE_URL}${this.#RPC_SEND_SCORE_PATH}`;
+
+        let scoreObj = {
+            score: score,
+            nickname: this.state.nickname
+        }
+
+        const fetchOptions = {
+            method: "POST",
+            body: JSON.stringify(scoreObj),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }
+
+        fetch(url, fetchOptions).then((response) => {
+            response.json().then((wasHighScore) => {
+                // TODO: If was a high score then do something here.  Celebration animation?
+                if (wasHighScore) {
+                    console.log("High score registered!");
+                }
+            })
+            .catch(() => {
+                console.log("ERROR: Cannot parse response from server.");
+            });
+        })
+        .catch(() => {console.log("ERROR: Cannot connect to server.")});
+    }    
 }
 
 export default MOATApp;

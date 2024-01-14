@@ -16,7 +16,7 @@ class Difficulty {
     static #initDifficulties = () => {
         const easy = {
             name: 'Easy',
-            tps: 1.5,   // Targets Per Second
+            tps: 1.5,       // Targets Per Second
             default: false
         };
 

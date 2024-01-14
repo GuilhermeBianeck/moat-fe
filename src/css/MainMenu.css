@@ -21,7 +21,6 @@
     display: inline;
     padding-top: 0px;
     padding-bottom: 0px;
-    /*padding-left: 7px;*/
     padding-left: max(7px, 1.1vw);
     padding-right: max(7px, 1.1vw);
 }
@@ -32,9 +31,6 @@
 }
 
 .MainMenu li a:hover {
-    /* color: yellow; */
-    /* text-decoration: underline; */
-
     animation-name: brightenText;
     animation-duration: 1s;
 }
