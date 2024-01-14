@@ -2,6 +2,9 @@ import React from 'react';
 import './css/LeaderBoard.css';
 import './css/PopUpContainer.css';
 
+/**
+ * A class representing the LeaderBoard popup overlay.
+ */
 class LeaderBoard extends React.Component {
     constructor(props) {
         console.log("Constructing LeaderBoard.");

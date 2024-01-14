@@ -2,6 +2,9 @@ import React from 'react';
 import MainMenu from './MainMenu.js';
 import './css/Header.css';
 
+/**
+ * A class representing the Application Header that displays the Menu and Title.
+ */
 class Header extends React.Component {
     render() {
         return (

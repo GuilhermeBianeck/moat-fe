@@ -4,6 +4,9 @@ import './css/PopUpContainer.css';
 
 import Difficulty from './constants/Difficulty.js';
 
+/**
+ * A class representing the Options popup overlay.
+ */
 class Options extends React.Component {
     #USERNAME_ERROR_MESSAGE = "Minimum 5 characters."
 
@@ -12,10 +15,14 @@ class Options extends React.Component {
     }
 
     state = {
-        tempNickname: this.props.nickname,
+        tempNickname: this.props.nickname,  // Temporary Nickname before it is validated.
         nicknameError: ""
     };
 
+    /**
+     * Sets the temporary Nickname before it is validated.
+     * @param nickname A String representing the requested Nickname.
+     */
     #setTempNickname = (nickname) => {
         nickname = nickname.toUpperCase();
 
@@ -30,6 +37,10 @@ class Options extends React.Component {
         }
     }
 
+    /**
+     * Returns all the Difficulties as HTML options to be embedded inside a <select> tag.
+     * @returns A JSX object containing the Difficulties.
+     */
     #drawDifficulties = () => {
         let difficulties = Difficulty.getDifficulties();
 
@@ -105,5 +116,3 @@ class Options extends React.Component {
 }
 
 export default Options;
-
-// pattern="[A-Za-z0-9]{5,10}"

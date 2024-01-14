@@ -1,6 +1,9 @@
 import React from 'react';
 import "./css/Footer.css";
 
+/**
+ * A class representing the Application page Footer.
+ */
 class Footer extends React.Component {
     constructor(props) {
         super(props);

@@ -2,6 +2,9 @@ import React from 'react';
 import './css/About.css';
 import './css/PopUpContainer.css';
 
+/**
+ * A class representing the About popup page.
+ */
 class About extends React.Component {
     constructor(props) {
         super(props);

@@ -2,13 +2,17 @@ import React from 'react';
 import './css/Stats.css';
 import './css/PopUpContainer.css';
 
+/**
+ * A class representing the Stats popup overlay.
+ */
 class Stats extends React.Component {
     constructor(props) {
         super(props);
     }
 
     render() {
-        let havePrvGameStats = false;   // Do we have stats from previous game?
+        // Boolean specifying if we have stats from the previous game.
+        let havePrvGameStats = false;
 
         let hits;
         let misses;
@@ -30,7 +34,8 @@ class Stats extends React.Component {
             havePrvGameStats = true; 
         }
 
-        let haveTotalGameStats = false; // Do we have stats from all prev. games?
+        // Boolean specifiying if we have stats from all previous games.
+        let haveTotalGameStats = false;
 
         let totalHits;
         let totalMisses;

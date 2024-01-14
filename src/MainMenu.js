@@ -1,6 +1,9 @@
 import React from 'react';
 import './css/MainMenu.css';
 
+/**
+ * A class representing the Main Menu.
+ */
 class MainMenu extends React.Component {
     constructor(props) {
         super(props);
