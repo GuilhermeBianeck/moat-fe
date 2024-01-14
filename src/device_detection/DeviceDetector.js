@@ -1,3 +1,6 @@
+/**
+ * A class used to detect what device the User is using.
+ */
 class DeviceDetector {
     constructor () {
         throw "DeviceDetector cannot be initialised!";

@@ -1,4 +1,6 @@
-// TODO: Cookie refreshing as 400 day Chrome limit.
+/**
+ * A class to handle writing and reading cookies for the Application.
+ */
 class Cookies {
     COOKIE_MAX_AGE = "2147483647";
     COOKIE_PATH = "/";

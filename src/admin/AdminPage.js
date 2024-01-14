@@ -5,6 +5,9 @@ import './css/AdminPage.css';
 import AdminLoginPage from './AdminLoginPage.js';
 import AdminOptionsPage from './AdminOptionsPage.js';
 
+/**
+ * A class representing the Administrator Page.
+ */
 class AdminPage extends React.Component {
     constructor(props) {
         super(props);

@@ -4,6 +4,9 @@ import URLConsts from '../constants/URLConsts';
 
 import './css/AdminOptionsPage.css';
 
+/**
+ * A class representing the Administrator Options Page.
+ */
 class AdminOptionsPage extends React.Component {
     constructor(props) {
         super(props);
@@ -74,6 +77,9 @@ class AdminOptionsPage extends React.Component {
         );
     }
 
+    /**
+     * Disables all buttons on the Administrator Options Page.
+     */
     disableAllButtons = () => {
         console.log("Disabling all buttons.");
 
@@ -86,6 +92,9 @@ class AdminOptionsPage extends React.Component {
         });
     }
 
+    /**
+     * Enables all buttons on the Administrator Options page.
+     */
     enableAllButtons = () => {
         console.log("Enabling all buttons.");
 
@@ -104,6 +113,9 @@ class AdminOptionsPage extends React.Component {
         this.props.handleAdminLogout();
     }
 
+    /**
+     * Contacts the MOAT Server and attempts to remove all Scores from the Leaderboard.
+     */
     handleRemoveAllScores = async () => {
         console.log("Removing all scores.");
 
@@ -153,6 +165,11 @@ class AdminOptionsPage extends React.Component {
         console.log("NOT CURRENTLY IMPLEMENTED!");
     }
 
+    /**
+     * Contacts the MOAT Server and removes all the Scores from the Leaderboard with the specified
+     * Nickname.
+     * @param nickname A String representing the Nickname to remove from the Leaderboard.
+     */
     handleRemoveScoresWithNickname = async (nickname) => {
         console.log("Handling removing scores with nickname.");
 

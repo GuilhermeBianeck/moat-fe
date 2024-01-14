@@ -4,6 +4,9 @@ import URLConsts from '../constants/URLConsts';
 
 import './css/AdminPageLogin.css';
 
+/**
+ * A class representing the Administrator Login Page.
+ */ 
 class AdminLoginPage extends React.Component {
     constructor(props) {
         console.log("Constructing AdminLoginpage.");
@@ -68,6 +71,11 @@ class AdminLoginPage extends React.Component {
         this.setState({loginButtonEnabled: true});
     }
 
+    /**
+     * Async function to contact the MOAT server and validate the Administrator's credentials.
+     * If the credentials are valid, then the User will be directed to the Administrator Options
+     * Page.
+     */ 
     handleLogin = async () => {
         console.log("Handling Admin Login...");
 
