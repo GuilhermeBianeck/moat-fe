@@ -41,8 +41,8 @@ class WelcomeScreen extends React.Component {
      */
     #progress = (nickname) => {
         // Check nickname is OK before progressing.
-        if (this.props.setNickname(nickname)) {
-        } else {
+        if (this.props.setNickname(nickname)) {} 
+        else {
             // Show error message.
             this.setState({ nicknameErrorMsg: this.#DEFAULT_NICK_ERROR_MSG });
         }
