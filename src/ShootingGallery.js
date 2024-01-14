@@ -98,6 +98,21 @@ class ShootingGallery extends React.Component {
         this.setDifficulty(props.difficulty);
     }
 
+    render() {
+        return (
+            <div className="shootingGalleryGame" ref={this.#canvasContainerDiv} >
+                <canvas width={this.#CANVAS_INIT_WIDTH} height={this.#CANVAS_INIT_HEIGHT}
+                        id="shootingGalleryCanvas" className="RoundBorder"
+                        ref={this.#canvas}
+                        onClick={(evt) => {
+                            evt.preventDefault();
+                            this.#handleClick(evt);
+                        }}
+                ></canvas>
+            </div>
+        )
+    }    
+
     componentDidMount = () => {
         this.#initCanvas();
 
@@ -604,7 +619,8 @@ class ShootingGallery extends React.Component {
     }
 
     /**
-     * 
+     * Loops through the list of Point Explosions and draws them.
+     * @param timestamp An integer representing the current Game time in milliseconds.
      */ 
     #drawPointsExplosions = (timestamp) => {
         const myIterator = this.#pointExplosions.values();
@@ -617,6 +633,10 @@ class ShootingGallery extends React.Component {
         }
     }
 
+    /**
+     * Loops through the list of Target Explosions and draws them.
+     * @param timestamp An integer representing the current Game time in milliseconds.
+     */
     #drawTargetExplosions = (timestamp) => {
         const myIterator = this.#targetExplosions.values();
 
@@ -628,6 +648,10 @@ class ShootingGallery extends React.Component {
         }
     }
 
+    /**
+     * Draws a bullet effect on the Game canvas.
+     * @param timestamp An integer representing the current Game time in milliseconds.
+     */
     #drawBulletTrail = (timestamp) => {
         if (this.#bulletTrail !== undefined && this.#bulletTrail !== null) {
             if (this.#bulletTrail.isMarkedForDestruct() === true) {
@@ -639,7 +663,13 @@ class ShootingGallery extends React.Component {
         }
     }
 
-    // Calculate the x and y position on the canvas.
+    /**
+     * Calculates the x and y coordinates on the Game canvas where the User has clicked the mouse
+     * pointer.
+     * @param clientX An integer representing the x position on the client.
+     * @param clientY An integer representing the y position on the client.
+     * @returns An object {xPos, yPos} containing the Game canvas x and y coordinates.
+     */
     #calcClickPosition = (clientX, clientY) => {
         let rect = this.#canvas.current.getBoundingClientRect();
         let x = clientX - rect.left;
@@ -653,6 +683,10 @@ class ShootingGallery extends React.Component {
         return coorObj;
     }
 
+    /**
+     * A function to handle the User clicking on the Game canvas.
+     * @param event An Event object.
+     */
     #handleClick = (event) => {
         if (this.#gameStarted === false) {
             this.#gameStarted = true;
@@ -661,7 +695,7 @@ class ShootingGallery extends React.Component {
             return;
         }
 
-        // If on end screen.
+        // If on the End screen.
         if (this.#gameStarted === true && this.#gameEnded === true) {
             this.#restartGame();
 
@@ -671,8 +705,9 @@ class ShootingGallery extends React.Component {
         this.#sounds.playShot();
         let coorObj = this.#calcClickPosition(event.clientX, event.clientY);
 
-        // Collision detection.
-        let targetWasHit = false;       // If click hit a target.
+        /* Collision detection. */
+        // If click hit a target.
+        let targetWasHit = false;
 
         const myIterator = this.#roundTargets.values();
 
@@ -718,8 +753,10 @@ class ShootingGallery extends React.Component {
         }
     }
 
-    // Creates a points explosion at the specific point, increments the score,
-    // and destroys the target.
+    /**
+     * Creates a points explosion at the specific point, increments the score, and destroys the 
+     * target.
+     */
     #playerHitTarget = (x, y, score, target) => {
         // Create target explosion.
         const targetExplosion = new TargetExplosion(x, y, this.#previousTimestamp);
@@ -732,21 +769,6 @@ class ShootingGallery extends React.Component {
 
         this.#score.increaseScore(score);
         target.destroyTarget();
-    }
-
-    render() {
-        return (
-            <div className="shootingGalleryGame" ref={this.#canvasContainerDiv} >
-                <canvas width={this.#CANVAS_INIT_WIDTH} height={this.#CANVAS_INIT_HEIGHT}
-                        id="shootingGalleryCanvas" className="RoundBorder"
-                        ref={this.#canvas}
-                        onClick={(evt) => {
-                            evt.preventDefault();
-                            this.#handleClick(evt);
-                        }}
-                ></canvas>
-            </div>
-        )
     }
 }
 
