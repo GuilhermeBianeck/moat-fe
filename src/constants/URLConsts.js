@@ -8,7 +8,7 @@ class URLConsts {
   static #RPC_PORT = process.env.REACT_APP_RPC_PORT;
 
   constructor() {
-    throw "URLConsts cannot be instantiated.";
+    throw new Error("URLConsts cannot be instantiated.");
   }
 
   static get RPC_BASE_URL() {

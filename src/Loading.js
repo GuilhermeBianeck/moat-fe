@@ -4,14 +4,14 @@ import "./css/Loading.css";
 class Loading extends React.Component {
   state = {};
 
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <div className="loading-container">
-        <img className="loading-image" src="/images/target.svg" />
+        <img
+          alt="Loading..."
+          className="loading-image"
+          src="/images/target.svg"
+        />
       </div>
     );
   }

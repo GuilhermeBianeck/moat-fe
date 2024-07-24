@@ -12,8 +12,9 @@ class Header extends React.Component {
         <header>
           <h1>
             <a
-              href="#"
-              onClick={() => {
+              href="/"
+              onClick={(e) => {
+                e.preventDefault();
                 this.props.hideAdminPage();
               }}
             >

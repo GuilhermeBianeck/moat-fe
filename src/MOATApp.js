@@ -456,6 +456,7 @@ class MOATApp extends React.Component {
    */
   setNickname = (name) => {
     console.log("Setting nickname.");
+
     if (Validator.validateNickname(name)) {
       this.setState({ nickname: name });
 

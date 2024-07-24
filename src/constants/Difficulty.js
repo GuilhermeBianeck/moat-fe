@@ -5,11 +5,13 @@ class Difficulty {
   static #MIN_DIFFICULTY;
 
   constructor() {
-    throw "Constants class cannot be instantiated!";
+    throw new Error("Constants class cannot be instantiated!");
   }
 
   static #initCheck() {
-    if (this.#difficulties === undefined) this.#initDifficulties();
+    if (this.#difficulties === undefined) {
+      this.#initDifficulties();
+    }
   }
 
   static #initDifficulties = () => {
@@ -47,7 +49,9 @@ class Difficulty {
     let maxDifficulty = 0;
     let defaultDifficulty = null;
 
-    if (this.#difficulties.size <= 0) throw "Difficulties have not been set!";
+    if (this.#difficulties.size <= 0) {
+      throw new Error("Difficulties have not been set!");
+    }
 
     this.#difficulties.forEach((value, key) => {
       if (key < minDifficulty) minDifficulty = key;

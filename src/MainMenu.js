@@ -5,17 +5,13 @@ import "./css/MainMenu.css";
  * A class representing the Main Menu.
  */
 class MainMenu extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <div className="MainMenu RoundBorder">
         <ul>
           <li>
             <a
-              href="#"
+              href="/"
               onClick={(evt) => {
                 evt.preventDefault();
                 this.props.showOptionsPage(true);
@@ -27,7 +23,7 @@ class MainMenu extends React.Component {
 
           <li>
             <a
-              href="#"
+              href="/"
               onClick={(evt) => {
                 evt.preventDefault();
                 this.props.showLeaderBoard(true);
@@ -39,7 +35,7 @@ class MainMenu extends React.Component {
 
           <li>
             <a
-              href="#"
+              href="/"
               onClick={(evt) => {
                 evt.preventDefault();
                 this.props.showStatsPage(true);
@@ -51,7 +47,7 @@ class MainMenu extends React.Component {
 
           <li>
             <a
-              href="#"
+              href="/"
               onClick={(evt) => {
                 evt.preventDefault();
                 this.props.showAboutPage(true);

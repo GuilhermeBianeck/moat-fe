@@ -6,16 +6,14 @@ import "./css/PopUpContainer.css";
  * A class representing the About popup page.
  */
 class About extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <div
         className="PopUpContainer"
         onClick={(evt) => {
-          if (evt.target != evt.currentTarget) return;
+          if (evt.target !== evt.currentTarget) {
+            return;
+          }
 
           this.props.showAboutPage(false);
         }}

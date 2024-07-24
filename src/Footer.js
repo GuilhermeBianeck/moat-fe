@@ -5,18 +5,15 @@ import "./css/Footer.css";
  * A class representing the Application page Footer.
  */
 class Footer extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <div className="Footer">
         <p>Copyright &copy; 2023 Matt Dixon</p>
         <p>
           <a
-            href="#"
-            onClick={() => {
+            href="/"
+            onClick={(e) => {
+              e.preventDefault();
               this.props.showAdminPage();
             }}
           >
