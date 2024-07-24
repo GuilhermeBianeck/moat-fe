@@ -1,4 +1,5 @@
 import React from "react";
+import Loading from "./Loading.js";
 import "./css/LeaderBoard.css";
 import "./css/PopUpContainer.css";
 
@@ -25,9 +26,12 @@ class LeaderBoard extends React.Component {
       >
         <div className="LeaderBoard PopUp-Screen RoundBorder">
           <h2>Leaderboard</h2>
-          {this.props.leaderBoard.length ? null : (
+
+          {this.props.leaderBoardLoading ? <Loading /> : null}
+
+          {!this.props.leaderBoardLoading && !this.props.leaderBoard.length ? (
             <p className="LeaderBoardEmptyMsg">Leaderboard is empty</p>
-          )}
+          ) : null}
 
           {this.props.leaderBoard.map((entry) => (
             <div key={i++} className="LeaderBoardEntry">
