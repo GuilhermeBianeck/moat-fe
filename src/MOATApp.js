@@ -23,6 +23,7 @@ import Validator from "./validators/Validator.js";
 import DeviceDetector from "./device_detection/DeviceDetector.js";
 
 import "./css/MOATApp.css";
+import ErrorPage from "./ErrorPage.js";
 
 /**
  * The main application class.
@@ -77,6 +78,7 @@ class MOATApp extends React.Component {
               }
             />
             <Route path="/admin" element={<AdminPage />} />
+            <Route path="*" element={<ErrorPage />} />
           </Routes>
 
           <Footer showAdminPage={this.showAdminPage} />
