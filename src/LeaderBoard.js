@@ -9,6 +9,7 @@ import "./css/PopUpContainer.css";
 class LeaderBoard extends React.Component {
   constructor(props) {
     console.log("Constructing LeaderBoard.");
+
     super(props);
   }
 
@@ -35,7 +36,7 @@ class LeaderBoard extends React.Component {
       <div
         className="PopUpContainer"
         onClick={(evt) => {
-          if (evt.target != evt.currentTarget) {
+          if (evt.target !== evt.currentTarget) {
             return;
           }
 

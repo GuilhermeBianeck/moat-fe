@@ -50,10 +50,6 @@ class MOATApp extends React.Component {
     leaderBoardLoading: false,
   };
 
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     let mainBody;
     if (this.state.adminPageVisible) {

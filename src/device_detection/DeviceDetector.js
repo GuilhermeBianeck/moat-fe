@@ -3,7 +3,7 @@
  */
 class DeviceDetector {
   constructor() {
-    throw "DeviceDetector cannot be initialised!";
+    throw new Error("DeviceDetector cannot be initialised!");
   }
 
   /**
@@ -11,7 +11,6 @@ class DeviceDetector {
    * @return A boolean representing true or false.
    */
   static isMobileDevice = () => {
-    // TODO: Add Android and Samsung.
     console.log("Detecting device.");
 
     let pattern = /iPad|iPhone|iPod|Mobile Safari/;
