@@ -9,17 +9,6 @@ class Footer extends React.Component {
     return (
       <div className="Footer">
         <p>Copyright &copy; 2023 Matt Dixon</p>
-        <p>
-          <a
-            href="/"
-            onClick={(e) => {
-              e.preventDefault();
-              this.props.showAdminPage();
-            }}
-          >
-            Admin Menu
-          </a>
-        </p>
       </div>
     );
   }
