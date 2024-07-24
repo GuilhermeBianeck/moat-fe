@@ -1,3 +1,1 @@
-class Constants {}
-
-export default Constants;
+export const MOAT_VERSION = "1.0";

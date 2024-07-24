@@ -1,4 +1,5 @@
 import React from "react";
+import { MOAT_VERSION } from "./constants/Constants";
 import "./css/About.css";
 import "./css/PopUpContainer.css";
 
@@ -22,7 +23,7 @@ class About extends React.Component {
           <h2>About</h2>
           <p>
             <span className="AboutAppTitle">
-              MATT'S ONLINE AIM TRAINER v0.1
+              MATT'S ONLINE AIM TRAINER v{MOAT_VERSION}
             </span>
           </p>
           <p>
