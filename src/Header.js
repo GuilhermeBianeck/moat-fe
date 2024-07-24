@@ -1,6 +1,7 @@
 import React from "react";
 import MainMenu from "./MainMenu.js";
 import "./css/Header.css";
+import { Link } from "react-router-dom";
 
 /**
  * A class representing the Application Header that displays the Menu and Title.
@@ -11,15 +12,7 @@ class Header extends React.Component {
       <div className="Header">
         <header>
           <h1>
-            <a
-              href="/"
-              onClick={(e) => {
-                e.preventDefault();
-                this.props.hideAdminPage();
-              }}
-            >
-              Matt's Online Aim Trainer
-            </a>
+            <Link to="/">Matt's Online Aim Trainer</Link>
           </h1>
           <MainMenu
             showLeaderBoard={this.props.showLeaderBoard}

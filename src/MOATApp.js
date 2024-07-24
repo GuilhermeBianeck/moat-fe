@@ -1,4 +1,7 @@
 import React from "react";
+
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import Header from "./Header.js";
 import Body from "./Body.js";
 import Footer from "./Footer.js";
@@ -35,7 +38,6 @@ class MOATApp extends React.Component {
     aboutPageVisible: false,
     optionsPageVisible: false,
     statsPageVisible: false,
-    adminPageVisible: false,
 
     nickname: "",
     difficulty: Difficulty.DEFAULT_DIFFICULTY,
@@ -51,76 +53,76 @@ class MOATApp extends React.Component {
   };
 
   render() {
-    let mainBody;
-    if (this.state.adminPageVisible) {
-      mainBody = <AdminPage />;
-    } else {
-      mainBody = (
-        <Body
-          difficulty={this.state.difficulty}
-          playMusic={this.state.playMusic}
-          playSounds={this.state.playSounds}
-          setLastGameStats={this.setLastGameStats}
-          sendScoreToServer={this.sendScoreToServer}
-        />
-      );
-    }
-
     return (
-      <div className="MOATApp">
-        <Header
-          showLeaderBoard={this.showLeaderBoard}
-          showAboutPage={this.showAboutPage}
-          showOptionsPage={this.showOptionsPage}
-          showStatsPage={this.showStatsPage}
-          hideAdminPage={this.hideAdminPage}
-        />
-
-        {mainBody}
-
-        <Footer showAdminPage={this.showAdminPage} />
-
-        {this.state.leaderBoardVisible ? (
-          <LeaderBoard
+      <BrowserRouter>
+        <div className="MOATApp">
+          <Header
             showLeaderBoard={this.showLeaderBoard}
-            leaderBoardLoading={this.state.leaderBoardLoading}
-            leaderBoard={this.state.leaderBoard}
-          />
-        ) : null}
-
-        {this.state.aboutPageVisible ? (
-          <About showAboutPage={this.showAboutPage} />
-        ) : null}
-
-        {this.state.statsPageVisible ? (
-          <Stats
-            showStatsPage={this.showStatsPage}
-            lastGameStats={this.state.lastGameStats}
-            totalGameStats={this.state.totalGameStats}
-          />
-        ) : null}
-
-        {this.state.optionsPageVisible ? (
-          <Options
+            showAboutPage={this.showAboutPage}
             showOptionsPage={this.showOptionsPage}
-            setPlaySounds={this.setPlaySounds}
-            setPlayMusic={this.setPlayMusic}
-            playSounds={this.state.playSounds}
-            playMusic={this.state.playMusic}
-            nickname={this.state.nickname}
-            setNickname={this.setNickname}
-            difficulty={this.state.difficulty}
-            setDifficulty={this.setDifficulty}
+            showStatsPage={this.showStatsPage}
           />
-        ) : null}
 
-        {!Validator.validateNickname(this.state.nickname) ? (
-          <WelcomeScreen
-            setNickname={this.setNickname}
-            showWelcomeScreen={this.showWelcomeScreen}
-          />
-        ) : null}
-      </div>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <Body
+                  difficulty={this.state.difficulty}
+                  playMusic={this.state.playMusic}
+                  playSounds={this.state.playSounds}
+                  setLastGameStats={this.setLastGameStats}
+                  sendScoreToServer={this.sendScoreToServer}
+                />
+              }
+            />
+            <Route path="/admin" element={<AdminPage />} />
+          </Routes>
+
+          <Footer showAdminPage={this.showAdminPage} />
+
+          {this.state.leaderBoardVisible ? (
+            <LeaderBoard
+              showLeaderBoard={this.showLeaderBoard}
+              leaderBoardLoading={this.state.leaderBoardLoading}
+              leaderBoard={this.state.leaderBoard}
+            />
+          ) : null}
+
+          {this.state.aboutPageVisible ? (
+            <About showAboutPage={this.showAboutPage} />
+          ) : null}
+
+          {this.state.statsPageVisible ? (
+            <Stats
+              showStatsPage={this.showStatsPage}
+              lastGameStats={this.state.lastGameStats}
+              totalGameStats={this.state.totalGameStats}
+            />
+          ) : null}
+
+          {this.state.optionsPageVisible ? (
+            <Options
+              showOptionsPage={this.showOptionsPage}
+              setPlaySounds={this.setPlaySounds}
+              setPlayMusic={this.setPlayMusic}
+              playSounds={this.state.playSounds}
+              playMusic={this.state.playMusic}
+              nickname={this.state.nickname}
+              setNickname={this.setNickname}
+              difficulty={this.state.difficulty}
+              setDifficulty={this.setDifficulty}
+            />
+          ) : null}
+
+          {!Validator.validateNickname(this.state.nickname) ? (
+            <WelcomeScreen
+              setNickname={this.setNickname}
+              showWelcomeScreen={this.showWelcomeScreen}
+            />
+          ) : null}
+        </div>
+      </BrowserRouter>
     );
   }
 
