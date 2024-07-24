@@ -47,6 +47,7 @@ class MOATApp extends React.Component {
     totalGameStats: new TotalStats(), // The TotalStats class object.
 
     leaderBoard: [],
+    leaderBoardLoading: false,
   };
 
   constructor(props) {
@@ -86,6 +87,7 @@ class MOATApp extends React.Component {
         {this.state.leaderBoardVisible ? (
           <LeaderBoard
             showLeaderBoard={this.showLeaderBoard}
+            leaderBoardLoading={this.state.leaderBoardLoading}
             leaderBoard={this.state.leaderBoard}
           />
         ) : null}
@@ -261,6 +263,8 @@ class MOATApp extends React.Component {
   populateLeaderBoard = () => {
     console.log("Populating leaderboard data.");
 
+    this.setState({ leaderBoardLoading: true });
+
     let url = `${URLConsts.RPC_BASE_URL}${this.#RPC_LB_PATH}`;
     const options = {
       method: "GET",
@@ -282,6 +286,9 @@ class MOATApp extends React.Component {
       })
       .catch(() => {
         console.log("ERROR: Cannot connect to server!");
+      })
+      .finally(() => {
+        this.setState({ leaderBoardLoading: false });
       });
   };
 
