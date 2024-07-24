@@ -1,31 +1,31 @@
 .AdminPage {
-    background-color: rgba(255, 255, 255, 0.05);
+  background-color: rgba(255, 255, 255, 0.05);
 
-    padding: 10px;
+  padding: 10px;
 }
 
 .AdminPage * {
-    text-transform: uppercase;
+  text-transform: uppercase;
 }
 
 .AdminPage button {
-    border: 0px;
-    border-radius: 0px;
+  border: 0px;
+  border-radius: 0px;
 
-    padding: 5px 10px 5px 10px;
-    color: white;
+  padding: 5px 10px 5px 10px;
+  color: white;
 
-    font-size: max(11px, calc(11px + 0.1vw));
-    background-color: rgba(255, 0, 0, 0.6);
+  font-size: max(11px, calc(11px + 0.1vw));
+  background-color: rgba(255, 0, 0, 0.6);
 
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .AdminPage button:hover {
-    background-color: white;
-    background-color: rgb(255, 0, 0, 1.0);
+  background-color: white;
+  background-color: rgb(255, 0, 0, 1);
 }
 
 .AdminPage button:disabled {
-    background-color: rgba(124, 121, 121, 0.829);    
+  background-color: rgba(124, 121, 121, 0.829);
 }

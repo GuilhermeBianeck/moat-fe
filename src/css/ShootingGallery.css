@@ -1,19 +1,19 @@
 .shootingGalleryGame {
-    display: flex;
+  display: flex;
 
-    min-width: 0;
-    min-height: 0;
+  min-width: 0;
+  min-height: 0;
 
-    flex-grow: 1;
-    flex-shrink: 1;
+  flex-grow: 1;
+  flex-shrink: 1;
 }
 
 #shootingGalleryCanvas {
-    cursor: crosshair;
+  cursor: crosshair;
 
-    flex-grow: 1;
-    flex-shrink: 1;
+  flex-grow: 1;
+  flex-shrink: 1;
 
-    min-width: 0;
-    min-height: 0;
+  min-width: 0;
+  min-height: 0;
 }

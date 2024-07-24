@@ -2,61 +2,63 @@
  * A class to handle writing and reading cookies for the Application.
  */
 class Cookies {
-    COOKIE_MAX_AGE = "2147483647";
-    COOKIE_PATH = "/";
+  COOKIE_MAX_AGE = "2147483647";
+  COOKIE_PATH = "/";
 
-    constructor() {
+  constructor() {}
+
+  setCookie = (name, value) => {
+    console.log("Setting cookie: " + name + "=" + value);
+
+    if (
+      name == undefined ||
+      name == null ||
+      value == undefined ||
+      value == null
+    ) {
+      console.log("Error setting cookie!");
+
+      return;
     }
 
-    setCookie = (name, value) => {
-        console.log("Setting cookie: " + name + "=" + value);
+    let cName = encodeURIComponent(name);
+    let cValue = encodeURIComponent(value);
 
-        if (name == undefined || name == null ||
-                value == undefined || value == null) {
-            console.log("Error setting cookie!");
+    let cookieString = `${cName}=${cValue}; max-age=${this.COOKIE_MAX_AGE}; path=${this.COOKIE_PATH};`;
 
-            return;
-        }
+    document.cookie = cookieString;
+  };
 
-        let cName = encodeURIComponent(name);
-        let cValue = encodeURIComponent(value);
+  /**
+   * Returns a cookie with the specified name.
+   *
+   * @param name The name of the cookie.
+   * @return The value of the cookie or 'null' if not found.
+   */
+  getCookie = (name) => {
+    let decodedCookies = decodeURIComponent(document.cookie);
 
-        let cookieString =
-            `${cName}=${cValue}; max-age=${this.COOKIE_MAX_AGE}; path=${this.COOKIE_PATH};`;
+    let cookieArray = decodedCookies.split(";");
+    for (let i = 0; i < cookieArray.length; i++) {
+      let cookie = cookieArray[i];
+      cookie = cookie.trim();
 
-        document.cookie = cookieString;
+      if (cookie.indexOf(name) == 0) {
+        return cookie.substring(name.length + 1, cookie.length);
+      }
     }
 
-    /**
-     * Returns a cookie with the specified name. 
-     * 
-     * @param name The name of the cookie.
-     * @return The value of the cookie or 'null' if not found.
-     */
-    getCookie = (name) => {
-        let decodedCookies = decodeURIComponent(document.cookie);
+    return null;
+  };
 
-        let cookieArray = decodedCookies.split(';');
-        for (let i = 0; i < cookieArray.length; i++) {
-            let cookie = cookieArray[i];
-            cookie = cookie.trim();
+  deleteCookie = (name) => {
+    console.log("Deleting cookie: " + name);
 
-            if (cookie.indexOf(name) == 0) {
-                return cookie.substring(name.length + 1, cookie.length);
-            }
-        }
+    let cName = encodeURIComponent(name);
+    let cookieString = `${cName}=0; max-age=0; path=${this.COOKIE_PATH}`;
 
-        return null;
-    }
-
-    deleteCookie = (name) => {
-        console.log("Deleting cookie: " + name);
-
-        let cName = encodeURIComponent(name);
-        let cookieString = `${cName}=0; max-age=0; path=${this.COOKIE_PATH}`;
-
-        document.cookie = cookieString;
-    }
+    document.cookie = cookieString;
+  };
 }
 
 export default Cookies;

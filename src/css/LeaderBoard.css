@@ -1,33 +1,33 @@
 .LeaderBoard {
-    width: max(200px, 30vw);
-    max-width: 300px;
-    text-transform: uppercase;
+  width: max(200px, 30vw);
+  max-width: 300px;
+  text-transform: uppercase;
 }
 
 .LeaderBoardEntry {
-    font-size: max(10px, calc(10px + 0.2vw));
-    color: #D2122E;
-    overflow: hidden;
-    margin-top: 12px;
-    margin-bottom: 5px;
+  font-size: max(10px, calc(10px + 0.2vw));
+  color: #d2122e;
+  overflow: hidden;
+  margin-top: 12px;
+  margin-bottom: 5px;
 }
 
 .LeaderBoardEntry:hover {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 .LeaderBoardName {
-    float: left;
+  float: left;
 }
 
 .LeaderBoardScore {
-    color: white;
-    float: right;
+  color: white;
+  float: right;
 }
 
 .LeaderBoardEmptyMsg {
-    font-size: max(10px, calc(10px + 0.2vw));
-    color: white;
-    margin-bottom: 2px;
-    font-weight: bold;
+  font-size: max(10px, calc(10px + 0.2vw));
+  color: white;
+  margin-bottom: 2px;
+  font-weight: bold;
 }
