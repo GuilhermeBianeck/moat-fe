@@ -8,10 +8,6 @@ import "./css/WelcomeScreen.css";
 class WelcomeScreen extends React.Component {
   #DEFAULT_NICK_ERROR_MSG = "Minimum 5 characters.";
 
-  constructor(props) {
-    super(props);
-  }
-
   state = {
     tempNickname: "",
     nicknameErrorMsg: "",

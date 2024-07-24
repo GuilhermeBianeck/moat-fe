@@ -5,16 +5,14 @@ class Cookies {
   COOKIE_MAX_AGE = "2147483647";
   COOKIE_PATH = "/";
 
-  constructor() {}
-
   setCookie = (name, value) => {
     console.log("Setting cookie: " + name + "=" + value);
 
     if (
-      name == undefined ||
-      name == null ||
-      value == undefined ||
-      value == null
+      name === undefined ||
+      name === null ||
+      value === undefined ||
+      value === null
     ) {
       console.log("Error setting cookie!");
 
@@ -43,7 +41,7 @@ class Cookies {
       let cookie = cookieArray[i];
       cookie = cookie.trim();
 
-      if (cookie.indexOf(name) == 0) {
+      if (cookie.indexOf(name) === 0) {
         return cookie.substring(name.length + 1, cookie.length);
       }
     }

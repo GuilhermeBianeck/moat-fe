@@ -5,7 +5,7 @@ import Difficulty from "../constants/Difficulty.js";
  */
 class Validator {
   constructor() {
-    throw "This class should not be initialised!";
+    throw new Error("This class should not be initialised!");
   }
 
   /**

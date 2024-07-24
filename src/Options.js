@@ -10,10 +10,6 @@ import Difficulty from "./constants/Difficulty.js";
 class Options extends React.Component {
   #USERNAME_ERROR_MESSAGE = "Minimum 5 characters.";
 
-  constructor(props) {
-    super(props);
-  }
-
   state = {
     tempNickname: this.props.nickname, // Temporary Nickname before it is validated.
     nicknameError: "",
@@ -62,7 +58,9 @@ class Options extends React.Component {
       <div
         className="PopUpContainer"
         onClick={(evt) => {
-          if (evt.target != evt.currentTarget) return;
+          if (evt.target !== evt.currentTarget) {
+            return;
+          }
 
           // Validate nickname before we close.
           if (this.props.setNickname(this.state.tempNickname)) {

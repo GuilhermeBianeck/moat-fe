@@ -8,10 +8,6 @@ import "./css/AdminOptionsPage.css";
  * A class representing the Administrator Options Page.
  */
 class AdminOptionsPage extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   state = {
     ipBanList: "UNIMPLEMENTED FUNCTION",
     removeNickname: "",
@@ -167,7 +163,7 @@ class AdminOptionsPage extends React.Component {
         if (response.ok) {
           return true;
         } else {
-          throw "Fetch response not OK";
+          throw new Error("Fetch response not OK");
         }
       })
       .catch((error) => {
