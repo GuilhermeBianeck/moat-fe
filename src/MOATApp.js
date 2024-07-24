@@ -28,7 +28,7 @@ class MOATApp extends React.Component {
   #RPC_LB_PATH = "/get-leaderboard/";
   #RPC_SEND_SCORE_PATH = "/send-score/";
 
-  #cookies; // Cookies class object.
+  #cookies = new Cookies();
 
   state = {
     leaderBoardVisible: false,
@@ -41,7 +41,7 @@ class MOATApp extends React.Component {
     difficulty: Difficulty.DEFAULT_DIFFICULTY,
 
     playSounds: true,
-    playMusic: true,
+    playMusic: false,
 
     lastGameStats: null, // The last game's GameStats class object.
     totalGameStats: new TotalStats(), // The TotalStats class object.
@@ -51,13 +51,10 @@ class MOATApp extends React.Component {
 
   constructor(props) {
     super(props);
-
-    this.#cookies = new Cookies();
   }
 
   render() {
     let mainBody;
-
     if (this.state.adminPageVisible) {
       mainBody = <AdminPage />;
     } else {
