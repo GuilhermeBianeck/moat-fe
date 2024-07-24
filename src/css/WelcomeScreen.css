@@ -2,43 +2,43 @@
 }
 
 .WelcomeScreen p {
-    font-size: max(12px, calc(12px + 0.2vw));
-    color: rgb(255, 232, 232);
-    text-transform: uppercase;
+  font-size: max(12px, calc(12px + 0.2vw));
+  color: rgb(255, 232, 232);
+  text-transform: uppercase;
 }
 
 .WelcomeScreen input {
-    border: 0px;
-    border-radius: 0px;
+  border: 0px;
+  border-radius: 0px;
 }
 
 .WSNicknameInput {
-    margin-top: 5px;
-    font-size: max(12px, calc(12px + 0.2vw));
-    text-align: center;
-    padding: 5px;
-    text-transform: uppercase;
+  margin-top: 5px;
+  font-size: max(12px, calc(12px + 0.2vw));
+  text-align: center;
+  padding: 5px;
+  text-transform: uppercase;
 }
 
 p.NicknameError {
-    color: red;
-    font-size: max(9px, calc(9px + 0.2vw));
-    margin-bottom: 0px;
+  color: red;
+  font-size: max(9px, calc(9px + 0.2vw));
+  margin-bottom: 0px;
 }
 
 .WSOKButton {
-    margin-top: 12px;
-    margin-bottom: 8px;
-    padding: 5px 10px 5px 10px;
+  margin-top: 12px;
+  margin-bottom: 8px;
+  padding: 5px 10px 5px 10px;
 
-    color: white;
-    font-size: max(11px, calc(11px + 0.1vw));
+  color: white;
+  font-size: max(11px, calc(11px + 0.1vw));
 
-    background-color: rgba(255, 0, 0, 0.6);
+  background-color: rgba(255, 0, 0, 0.6);
 }
 
 .WSOKButton:hover {
-    background-color: white;
-    background-color: rgb(255, 0, 0, 1.0);
-    cursor: pointer;
+  background-color: white;
+  background-color: rgb(255, 0, 0, 1);
+  cursor: pointer;
 }
