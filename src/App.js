@@ -22,13 +22,13 @@ import URLConsts from "./constants/URLConsts.js";
 import Validator from "./validators/Validator.js";
 import DeviceDetector from "./device_detection/DeviceDetector.js";
 
-import "./css/MOATApp.css";
+import "./css/App.css";
 import ErrorPage from "./ErrorPage.js";
 
 /**
  * The main application class.
  */
-class MOATApp extends React.Component {
+class App extends React.Component {
   #RPC_LB_PATH = "/get-leaderboard/";
   #RPC_SEND_SCORE_PATH = "/send-score/";
 
@@ -56,14 +56,9 @@ class MOATApp extends React.Component {
   render() {
     return (
       <BrowserRouter>
-        <div className="MOATApp">
-          <Header
-            showLeaderBoard={this.showLeaderBoard}
-            showAboutPage={this.showAboutPage}
-            showOptionsPage={this.showOptionsPage}
-            showStatsPage={this.showStatsPage}
+        <div className="App">
+        <Header
           />
-
           <Routes>
             <Route
               path="/"
@@ -80,8 +75,6 @@ class MOATApp extends React.Component {
             <Route path="/admin" element={<AdminPage />} />
             <Route path="*" element={<ErrorPage />} />
           </Routes>
-
-          <Footer showAdminPage={this.showAdminPage} />
 
           {this.state.leaderBoardVisible ? (
             <LeaderBoard
@@ -123,6 +116,12 @@ class MOATApp extends React.Component {
               showWelcomeScreen={this.showWelcomeScreen}
             />
           ) : null}
+          <Footer
+            showLeaderBoard={this.showLeaderBoard}
+            showAboutPage={this.showAboutPage}
+            showOptionsPage={this.showOptionsPage}
+            showStatsPage={this.showStatsPage}
+          /> {}
         </div>
       </BrowserRouter>
     );
@@ -132,7 +131,6 @@ class MOATApp extends React.Component {
     console.log("Loading cookies.");
 
     this.loadStatsFromCookie();
-
     this.loadNicknameFromCookie();
     this.loadOptionsFromCookie();
 
@@ -251,14 +249,12 @@ class MOATApp extends React.Component {
     let playMusic = this.#cookies.getCookie("playMusic");
 
     if (difficulty !== null) this.setDifficulty(difficulty);
-
     if (playMusic !== null) this.setPlayMusic(playMusic);
-
     if (playSounds !== null) this.setPlaySounds(playSounds);
   };
 
   /**
-   * Connects to the MOAT Server and fetches the Leaderboard data and populates it.
+   * Connects to the Server and fetches the Leaderboard data and populates it.
    */
   populateLeaderBoard = () => {
     console.log("Populating leaderboard data.");
@@ -271,18 +267,15 @@ class MOATApp extends React.Component {
     };
 
     fetch(url, options)
-      .then((response) => {
-        response
-          .json()
-          .then((data) => {
-            if (data !== null) {
-              this.setState({ leaderBoard: data });
-            }
-          })
-          .catch(() => {
-            console.log("Leaderboard JSON data is empty.");
-            this.setState({ leaderBoard: [] });
-          });
+      .then((response) => response.json())
+      .then((data) => {
+        if (data !== null) {
+          this.setState({ leaderBoard: data });
+        }
+      })
+      .catch(() => {
+        console.log("Leaderboard JSON data is empty.");
+        this.setState({ leaderBoard: [] });
       })
       .catch(() => {
         console.log("ERROR: Cannot connect to server!");
@@ -294,13 +287,11 @@ class MOATApp extends React.Component {
 
   showAdminPage = () => {
     console.log("Trying to load Admin Page...");
-
     this.setState({ adminPageVisible: true });
   };
 
   hideAdminPage = () => {
     console.log("Hiding Admin Page...");
-
     this.setState({ adminPageVisible: false });
   };
 
@@ -314,7 +305,6 @@ class MOATApp extends React.Component {
 
     if (!gameStatsObj === typeof GameStats) {
       console.log("Error: Not GameStats object.");
-
       return;
     } else {
       this.setState({ lastGameStats: gameStatsObj });
@@ -342,7 +332,6 @@ class MOATApp extends React.Component {
 
     if (!totalStatsObj === typeof TotalStats) {
       console.log("Error: Not TotalStats object.");
-
       return;
     } else {
       this.setState({ totalGameStats: totalStatsObj });
@@ -365,44 +354,28 @@ class MOATApp extends React.Component {
    * Shows the Stats overlay.
    */
   showStatsPage = (value) => {
-    if (value === true) {
-      this.setState({ statsPageVisible: true });
-    } else {
-      this.setState({ statsPageVisible: false });
-    }
+    this.setState({ statsPageVisible: value });
   };
 
   /**
    * Shows the About overlay.
    */
   showAboutPage = (value) => {
-    if (value === true) {
-      this.setState({ aboutPageVisible: true });
-    } else {
-      this.setState({ aboutPageVisible: false });
-    }
+    this.setState({ aboutPageVisible: value });
   };
 
   /**
    * Shows the Options overlay.
    */
   showOptionsPage = (value) => {
-    if (value === true) {
-      this.setState({ optionsPageVisible: true });
-    } else {
-      this.setState({ optionsPageVisible: false });
-    }
+    this.setState({ optionsPageVisible: value });
   };
 
   /**
    * Shows the screen
    */
   showWelcomeScreen = (value) => {
-    if (value === true) {
-      this.setState({ welcomeScreenVisible: true });
-    } else {
-      this.setState({ welcomeScreenVisible: false });
-    }
+    this.setState({ welcomeScreenVisible: value });
   };
 
   /**
@@ -412,15 +385,10 @@ class MOATApp extends React.Component {
   setPlaySounds = (value) => {
     if (DeviceDetector.isMobileDevice()) {
       this.setState({ playSounds: false });
-
       return;
     }
 
-    if (value === true || value === "true") {
-      this.setState({ playSounds: true });
-    } else {
-      this.setState({ playSounds: false });
-    }
+    this.setState({ playSounds: value === true || value === "true" });
   };
 
   /**
@@ -430,26 +398,23 @@ class MOATApp extends React.Component {
   setPlayMusic = (value) => {
     if (DeviceDetector.isMobileDevice()) {
       this.setState({ playMusic: false });
-
       return;
     }
 
-    if (value === true || value === "true") {
-      this.setState({ playMusic: true });
-    } else {
-      this.setState({ playMusic: false });
-    }
+    this.setState({ playMusic: value === true || value === "true" });
   };
 
   /**
    * Sets the game Difficulty.
    * @example setDifficulty(Difficulty.MAX_DIFFICULTY);
-   * @param A Difficulty object representing the difficulty.
+   * @param value A Difficulty object representing the difficulty.
    */
   setDifficulty = (value) => {
-    if (Validator.validateDifficulty(value))
+    if (Validator.validateDifficulty(value)) {
       this.setState({ difficulty: value });
-    else this.setState({ difficulty: Difficulty.DEFAULT_DIFFICULTY });
+    } else {
+      this.setState({ difficulty: Difficulty.DEFAULT_DIFFICULTY });
+    }
   };
 
   /**
@@ -463,7 +428,6 @@ class MOATApp extends React.Component {
 
     if (Validator.validateNickname(name)) {
       this.setState({ nickname: name });
-
       return true;
     } else {
       return false;
@@ -471,8 +435,8 @@ class MOATApp extends React.Component {
   };
 
   /**
-   * Sends the specified Score to the MOAT Server to register it.
-   * @param score A int value representing the Score.
+   * Sends the specified Score to the Server to register it.
+   * @param score An int value representing the Score.
    */
   sendScoreToServer = (score) => {
     console.log("Sending score to server.");
@@ -493,18 +457,15 @@ class MOATApp extends React.Component {
     };
 
     fetch(url, fetchOptions)
-      .then((response) => {
-        response
-          .json()
-          .then((wasHighScore) => {
-            // TODO: If was a high score then do something here.  Celebration animation?
-            if (wasHighScore) {
-              console.log("High score registered!");
-            }
-          })
-          .catch(() => {
-            console.log("ERROR: Cannot parse response from server.");
-          });
+      .then((response) => response.json())
+      .then((wasHighScore) => {
+        // TODO: If was a high score then do something here.  Celebration animation?
+        if (wasHighScore) {
+          console.log("High score registered!");
+        }
+      })
+      .catch(() => {
+        console.log("ERROR: Cannot parse response from server.");
       })
       .catch(() => {
         console.log("ERROR: Cannot connect to server.");
@@ -512,4 +473,4 @@ class MOATApp extends React.Component {
   };
 }
 
-export default MOATApp;
+export default App;

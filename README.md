@@ -1,9 +1,7 @@
-# Matt's Online Aim Trainer (MOAT) Client Readme
+## Aim Trainer (AT) Client Readme
 
-MOAT is an aim trainer game where the user has to click targets on the screen and accrue
+AT is an aim trainer game where the user has to click targets on the screen and accrue
 points to beat the online leaderboards.
-
-© 2023 All rights reserved Matthew Dixon.
 
 ## Available Scripts
 

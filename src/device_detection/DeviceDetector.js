@@ -3,25 +3,19 @@
  */
 class DeviceDetector {
   constructor() {
-    throw new Error("DeviceDetector cannot be initialised!");
+    throw new Error("DeviceDetector cannot be instantiated!");
   }
 
   /**
    * Attempts to detect whether the User is using a mobile device to use the Application.
-   * @return A boolean representing true or false.
+   * @return {boolean} True if the User is using a mobile device, otherwise false.
    */
-  static isMobileDevice = () => {
+  static isMobileDevice() {
     console.log("Detecting device.");
 
-    let pattern = /iPad|iPhone|iPod|Mobile Safari/;
-    let userAgent = navigator.userAgent;
-
-    if (pattern.test(userAgent)) {
-      return true;
-    } else {
-      return false;
-    }
-  };
+    const pattern = /iPad|iPhone|iPod|Mobile Safari|Android|BlackBerry|Opera Mini|IEMobile/;
+    return pattern.test(navigator.userAgent);
+  }
 }
 
 export default DeviceDetector;

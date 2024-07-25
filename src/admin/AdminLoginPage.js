@@ -83,12 +83,6 @@ class AdminLoginPage extends React.Component {
   enableLoginButton = () => {
     this.setState({ loginButtonEnabled: true });
   };
-
-  /**
-   * Async function to contact the MOAT server and validate the Administrator's credentials.
-   * If the credentials are valid, then the User will be directed to the Administrator Options
-   * Page.
-   */
   handleLogin = async () => {
     console.log("Handling Admin Login...");
 

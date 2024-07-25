@@ -1,0 +1,74 @@
+.App {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  min-height: 0;
+  min-width: 0;
+  max-width: max(800px, 50vw);
+  margin: 0 10px;
+  padding: 20px;
+  text-align: center;
+  position: relative;
+  background-color: #0B0B0B; 
+  border-radius: 8px; /* Soft rounded corners for a modern look */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0); /* Subtle shadow for depth */
+}
+
+/* Background overlay */
+.App:before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100vw;
+  height: 100vh;
+  transform: translate(-50%, -50%) rotate(-20deg) scale(1.5);
+  background-image: url("../images/target.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  opacity: 0.1; /* Slightly reduced opacity for a subtle effect */
+  z-index: -1;
+}
+
+.RoundBorder {
+  border: 2px solid #01FF00; /* Slightly more visible border */
+  border-radius: 8px; /* Softer rounded corners */
+  padding: 10px; /* Padding for better spacing */
+  background-color: #04503e; /* White background for better contrast */
+}
+
+input[type="checkbox"],
+select {
+  cursor: pointer;
+  padding: 5px; /* Better touch target size */
+  border-radius: 4px; /* Rounded corners for inputs */
+  border: 1px solid #ccc; /* Light border for inputs */
+}
+
+p,
+span,
+h1,
+h2,
+h3 {
+  cursor: default;
+}
+
+h1,
+h2 {
+  text-transform: uppercase;
+  margin: 7px 5px;
+  text-shadow: 2px 2px rgba(255, 255, 255, 0.7);
+}
+
+h1 {
+  font-size: max(24px, calc(14px + 1.5vw)); /* Larger font size for better readability */
+  font-weight: bold; /* Bold text for better emphasis */
+  color: #36ff68; /* Darker color for better contrast */
+}
+
+h2 {
+  font-size: max(18px, calc(12px + 1.0vw)); /* Slightly larger font size */
+  font-weight: semi-bold; /* Semi-bold for emphasis */
+  color: #555; /* Darker color for better contrast */
+}

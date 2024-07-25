@@ -1,43 +1,41 @@
 class GameStats {
-  #misses; // Targets that have been hit.
-  #hits; // Clicks that did not hit a target.
+  #misses; // Clicks that did not hit a target.
+  #hits; // Targets that have been hit.
   #targetsDisappeared; // Targets that disappeared without being hit.
 
   constructor() {
+    this.resetStats();
+  }
+
+  registerHit() {
+    this.#hits++;
+  }
+
+  registerMiss() {
+    this.#misses++;
+  }
+
+  registerTargetDisappeared() {
+    this.#targetsDisappeared++;
+  }
+
+  resetStats() {
     this.#misses = 0;
     this.#hits = 0;
     this.#targetsDisappeared = 0;
   }
 
-  registerHit = () => {
-    this.#hits++;
-  };
-
-  registerMiss = () => {
-    this.#misses++;
-  };
-
-  registerTargetDisappeared = () => {
-    this.#targetsDisappeared++;
-  };
-
-  resetStats = () => {
-    this.#misses = 0;
-    this.#hits = 0;
-    this.#targetsDisappeared = 0;
-  };
-
-  getHits = () => {
+  getHits() {
     return this.#hits;
-  };
+  }
 
-  getMisses = () => {
+  getMisses() {
     return this.#misses;
-  };
+  }
 
-  getTargetsDisappeared = () => {
+  getTargetsDisappeared() {
     return this.#targetsDisappeared;
-  };
+  }
 }
 
 export default GameStats;

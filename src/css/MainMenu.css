@@ -1,33 +1,32 @@
 .MainMenu {
+  margin-top: 20px; /* Added margin to the top */
   margin-bottom: 12px;
   background-color: rgba(255, 255, 255, 0.1);
+  padding: 10px 20px; /* Added padding for left and right space */
+  border-radius: 8px; /* Optional: for a more modern look */
 }
 
 .MainMenu ul {
   list-style-type: none;
   overflow: hidden;
-  margin-top: 7px;
-  margin-bottom: 7px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 7px auto;
   padding: 0;
-
+  text-align: center; /* Center the items horizontally */
   font-size: max(10px, calc(10px + 0.2vw));
   text-transform: uppercase;
   font-weight: bold;
 }
 
 .MainMenu li {
-  display: inline;
-  padding-top: 0px;
-  padding-bottom: 0px;
-  padding-left: max(7px, 1.1vw);
-  padding-right: max(7px, 1.1vw);
+  display: inline-block; /* Changed to inline-block for better control */
+  margin: 0 10px; /* Added margin between buttons */
+  padding: 5px 15px; /* Increased padding for buttons */
 }
 
 .MainMenu li a {
   text-decoration: none;
   color: white;
+  display: block; /* Ensure a block-level link for better padding control */
 }
 
 .MainMenu li a:hover {
@@ -37,6 +36,6 @@
 
 @keyframes brightenText {
   to {
-    color: red;
+    color: rgb(20, 207, 73);
   }
 }

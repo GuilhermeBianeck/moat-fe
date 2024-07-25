@@ -186,7 +186,7 @@ class AdminOptionsPage extends React.Component {
   };
 
   /**
-   * Contacts the MOAT Server and removes all the Scores from the Leaderboard with the specified
+   * Contacts the Server and removes all the Scores from the Leaderboard with the specified
    * Nickname.
    * @param nickname A String representing the Nickname to remove from the Leaderboard.
    */
