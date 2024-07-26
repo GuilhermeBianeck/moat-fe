@@ -1,41 +1,83 @@
 .MainMenu {
-  margin-top: 20px; /* Added margin to the top */
+  margin-top: 20px;
   margin-bottom: 12px;
   background-color: rgba(255, 255, 255, 0.1);
-  padding: 10px 20px; /* Added padding for left and right space */
-  border-radius: 8px; /* Optional: for a more modern look */
+  padding: 10px 20px;
+  border-radius: 8px;
+  position: relative;
+  overflow: visible; /* Ensure the pseudo-element is not clipped */
+}
+
+.MainMenu:before {
+  content: '';
+  position: absolute;
+  top: -4px; /* Slightly outside the actual menu */
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  border-radius: 8px; /* Match the border-radius of the .MainMenu */
+  border: 4px solid transparent; /* Transparent border */
+  background: linear-gradient(90deg, rgba(20, 207, 73, 0.5), rgba(255, 255, 255, 0.1), rgba(20, 207, 73, 0.5));
+  background-size: 200% 100%;
+  animation: borderAnimation 3s linear infinite;
+  pointer-events: none; /* Ensure the pseudo-element does not interfere with menu interactions */
+  z-index: 0; /* Ensure the effect is above the background but behind the content */
+}
+
+@keyframes borderAnimation {
+  0% {
+    background-position: 0% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
 }
 
 .MainMenu ul {
   list-style-type: none;
-  overflow: hidden;
+  display: flex; /* Use Flexbox */
+  justify-content: center;
   margin: 7px auto;
   padding: 0;
-  text-align: center; /* Center the items horizontally */
+  text-align: center;
   font-size: max(10px, calc(10px + 0.2vw));
   text-transform: uppercase;
   font-weight: bold;
+  position: relative; /* Ensure content is above the pseudo-element */
+  z-index: 1; /* Ensure content is above the pseudo-element */
 }
 
 .MainMenu li {
-  display: inline-block; /* Changed to inline-block for better control */
-  margin: 0 10px; /* Added margin between buttons */
-  padding: 5px 15px; /* Increased padding for buttons */
+  flex: 1; /* Make all li elements take equal space */
+  margin: 0 10px;
+  padding: 5px 0; /* Adjust padding to remove horizontal padding */
 }
 
 .MainMenu li a {
   text-decoration: none;
   color: white;
-  display: block; /* Ensure a block-level link for better padding control */
+  display: block;
+  padding: 10px 20px;
+  border: 2px solid transparent;
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.8);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5), inset 0 0 10px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease-in-out;
+  text-align: center; /* Ensure text is centered */
 }
 
 .MainMenu li a:hover {
-  animation-name: brightenText;
-  animation-duration: 1s;
+  text-decoration: none; /* Ensure no underline on hover */
+  border: 2px solid rgb(20, 207, 73);
+  box-shadow: 0 0 10px rgb(20, 207, 73), inset 0 0 10px rgb(20, 207, 73);
+  animation: neonGlow 1.5s infinite alternate;
 }
 
-@keyframes brightenText {
+@keyframes neonGlow {
+  from {
+    box-shadow: 0 0 10px rgb(20, 207, 73), inset 0 0 10px rgb(20, 207, 73);
+  }
   to {
-    color: rgb(20, 207, 73);
+    box-shadow: 0 0 20px rgb(20, 207, 73), inset 0 0 20px rgb(20, 207, 73);
   }
 }

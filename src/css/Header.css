@@ -1,7 +1,50 @@
 .Header {
+  text-align: center;
+  margin: 10px 0;
+}
+
+.Header h1 {
+  font-family: "Helvetica Neue", sans-serif; /* Cursive retro arcade font */
+  font-size: 3rem; /* Adjust size as needed */
+  color: #fff; /* Darker inside color */
+  text-shadow:
+    0 0 7px #00ff00,
+    0 0 10px #00ff00,
+    0 0 21px #00ff00,
+    0 0 42px #00ff00,
+    0 0 82px #00ff00,
+    0 0 92px #00ff00,
+    0 0 102px #00ff00,
+    0 0 151px #00ff00;
+  animation: neonPulsate 1.5s ease-in-out infinite alternate;
 }
 
 .Header h1 a {
   text-decoration: none;
   color: inherit;
+}
+
+@keyframes neonPulsate {
+  0% {
+    text-shadow:
+      0 0 4px #00ff00,
+      0 0 10px #00ff00,
+      0 0 18px #00ff00,
+      0 0 38px #00ff00,
+      0 0 73px #00ff00,
+      0 0 80px #00ff00,
+      0 0 94px #00ff00,
+      0 0 140px #00ff00;
+  }
+  100% {
+    text-shadow:
+      0 0 7px #00ff00,
+      0 0 11px #00ff00,
+      0 0 19px #00ff00,
+      0 0 40px #00ff00,
+      0 0 80px #00ff00,
+      0 0 90px #00ff00,
+      0 0 100px #00ff00,
+      0 0 150px #00ff00;
+  }
 }

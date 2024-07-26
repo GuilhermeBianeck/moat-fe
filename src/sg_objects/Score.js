@@ -32,7 +32,7 @@ class Score {
 
     // Draw drop shadow
     context.font = this.#fontStyle;
-    context.textAlign = "right";
+    context.textAlign = "center";
     context.textBaseline = "middle";
     context.fillStyle = this.#shadowColor;
     context.fillText(message, this.#xPos + 2, this.#yPos + 2);
